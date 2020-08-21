@@ -47,6 +47,7 @@ public partial class Character : MonoBehaviour
         Grandpa,
         Mama,
         Papa,
+        Son,
         
         Count,
     }
