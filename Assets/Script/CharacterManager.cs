@@ -4,6 +4,27 @@ using UnityEngine;
 
 public class CharacterManager : SingletonBehaviour<CharacterManager>
 {
-    private List<Character> m_Characters;
-    public List<Character> characters => m_Characters;
+    [Header("캐릭터")]
+    public List<Character> characters;
+    [Header("룸")]
+    public  List<Room>     rooms;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        int count = characters.Count;
+        for (int i = 0; i < count; ++i)
+        {
+            characters[i].room = rooms[i];
+        }
+
+        StartCoroutine(DieTest());
+    }
+
+    private IEnumerator DieTest()
+    {
+        yield return new WaitForSeconds(3f);
+        characters[2].Die();
+    }
 }
