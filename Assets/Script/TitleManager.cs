@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class TitleManager : MonoBehaviour
 {
-    private void Start()
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    static void LoadUIScene()
     {
         SceneManager.LoadScene("UIScene", LoadSceneMode.Additive);
     }

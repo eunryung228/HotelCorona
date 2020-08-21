@@ -26,17 +26,17 @@ public class GameManager : MonoBehaviour
 
 
     // 총 게임 데이터
-    int confirmNum = 0;
-    int cureNum = 0;
-    int escapeNum = 0;
+    public int confirmNum = 0;
+    public int cureNum = 0;
+    public int escapeNum = 0;
 
     // 일일 게임 데이터
-    int dailyConfirmNum = 0;
-    int dailyCureNum = 0;
-    int dailyEscapeNum = 0;
+    public int dailyConfirmNum = 0;
+    public int dailyCureNum = 0;
+    public int dailyEscapeNum = 0;
 
     // 인카운터 용
-    int totalConfirmNum = 342;
+    int totalConfirmNum = 5;
 
     // 대기 중인 격리자 수
     int remainQuarStby;
@@ -51,23 +51,72 @@ public class GameManager : MonoBehaviour
         mgrScene = FindObjectOfType<MySceneManager>();
     }
 
-    public void StartDay()
+
+    // temp
+    public void UpUp()
+    {
+        dailyConfirmNum += 1;
+    }
+    //
+
+    public void SetOffUIPanels()
+    {
+        backPanel.SetActive(false);
+        newsPanel.SetActive(false);
+        dayPanel.SetActive(false);
+        passDayPanel.SetActive(false);
+        failDayPanel.SetActive(false);
+    }
+
+    public void SetOffFailPanel()
+    {
+        backPanel.SetActive(false);
+        failDayPanel.SetActive(false);
+    }
+
+    public void StartGame()
     {
         newsPanel.SetActive(true);
         dayPanel.SetActive(true);
     }
 
 
+    private void UpdateData()
+    {
+        confirmNum += dailyConfirmNum;
+        cureNum += dailyCureNum;
+        escapeNum += dailyEscapeNum;
+        ResetTodayData();
+    }
+
+    private void ResetTodayData()
+    {
+        dailyCureNum = 0;
+        escapeNum = 0;
+        dailyEscapeNum = 0;
+    }
+
+    public void ResetAllData()
+    {
+        confirmNum = 0;
+        dailyConfirmNum = 0;
+        cureNum = 0;
+        ResetTodayData();
+    }
+
     public void CheckConfirmNum()
     {
+        UpdateData();
         backPanel.SetActive(true);
         if (confirmNum >= totalConfirmNum)
         {
             failDayPanel.SetActive(true);
+            failDayPanel.transform.GetChild(0).GetComponent<ResultManager>().SetResult();
         }
         else
         {
             passDayPanel.SetActive(true);
+            passDayPanel.transform.GetChild(0).GetComponent<ResultManager>().SetResult();
         }
     }
 
@@ -76,5 +125,17 @@ public class GameManager : MonoBehaviour
         backPanel.SetActive(false);
         passDayPanel.SetActive(false);
         mgrScene.PlayPassDay();
+    }
+
+    public void ClickBackToTitleBtn()
+    {
+        ResetAllData();
+        mgrScene.ChangeScene("TitleScene");
+    }
+
+    public void ClickRestartGameBtn()
+    {
+        ResetAllData();
+        mgrScene.Restart();
     }
 }

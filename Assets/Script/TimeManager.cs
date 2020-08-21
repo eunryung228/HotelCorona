@@ -36,15 +36,13 @@ public class TimeManager : MonoBehaviour
             timeText.text = min.ToString("D2") + ":" + ((int)sec).ToString("D2");
 
             // temp
-            /*
-            if (sec >= 3)
+            if (sec >= 5)
             {
                 time = 0;
                 min = 0;
                 sec = 0;
                 FindObjectOfType<GameManager>().CheckConfirmNum();
             }
-            */
 
             if (sec >= 60)
             {

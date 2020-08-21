@@ -16,4 +16,10 @@ public class DateManager : MonoBehaviour
         date += 1;
         textDate.text = date.ToString("D2");
     }
+
+    public void ResetDate()
+    {
+        date = 1;
+        textDate.text = date.ToString("D2");
+    }
 }

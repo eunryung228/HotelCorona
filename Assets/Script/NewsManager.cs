@@ -34,7 +34,7 @@ public class NewsManager : MonoBehaviour
         // news number 저장
 
         // 코루틴 시작
-        StopAllCoroutines();
+        StopCoroutine(NewsCoroutine());
         StartCoroutine(NewsCoroutine());
     }
 

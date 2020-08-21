@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using MyDefines;
+
 
 public class MySceneManager : MonoBehaviour
 {
@@ -11,11 +13,26 @@ public class MySceneManager : MonoBehaviour
     private string currScene = "TitleScene";
     private Color m_color;
 
+    private SceneState sceneState = SceneState.NORMAL;
+
     private float fadeTime = 1f;
     float imgStart;
     float imgEnd;
     float imgTime = 0f;
 
+
+    private void MakeScene(string scene)
+    {
+        SceneManager.UnloadSceneAsync(currScene);
+
+        if (currScene == "TitleScene")
+            FindObjectOfType<GameManager>().StartGame();
+        else
+            FindObjectOfType<GameManager>().SetOffUIPanels();
+        currScene = scene;
+        SceneManager.LoadScene(scene, LoadSceneMode.Additive);
+        sceneState = SceneState.NORMAL;
+    }
 
     public void ChangeScene(string scene)
     {
@@ -24,10 +41,12 @@ public class MySceneManager : MonoBehaviour
 
     IEnumerator ChangeSceneCoroutine(string scene)
     {
-        yield return StartCoroutine(ImageFadeOut());
-        SceneManager.UnloadSceneAsync(currScene);
-        FindObjectOfType<GameManager>().StartDay();
-        SceneManager.LoadScene(scene, LoadSceneMode.Additive);
+        StartCoroutine(ImageFadeOut());
+        yield return new WaitUntil(() => sceneState == SceneState.OUT);
+
+        MakeScene(scene);
+        yield return new WaitUntil(() => sceneState == SceneState.NORMAL);
+
         StartCoroutine(ImageFadeIn());
     }
 
@@ -44,9 +63,25 @@ public class MySceneManager : MonoBehaviour
         StartCoroutine(ImageFadeIn());
     }
 
+    public void Restart()
+    {
+        StartCoroutine(RestartCoroutine());
+    }
+
+    IEnumerator RestartCoroutine()
+    {
+        yield return StartCoroutine(ImageFadeOut());
+        FindObjectOfType<GameManager>().ResetAllData();
+        FindObjectOfType<GameManager>().SetOffFailPanel();
+        FindObjectOfType<TimeManager>().ResetTimeText();
+        FindObjectOfType<DateManager>().ResetDate();
+        StartCoroutine(ImageFadeIn());
+    }
+
 
     protected IEnumerator ImageFadeIn()
     {
+        sceneState = SceneState.FI;
         m_color.a = 1f;
         m_color = fadeImage.color;
         imgStart = 1f; imgEnd = 0f; imgTime = 0f;
@@ -59,11 +94,13 @@ public class MySceneManager : MonoBehaviour
             yield return null;
         }
         fadeImage.gameObject.SetActive(false);
+        sceneState = SceneState.NORMAL;
     }
 
 
     protected IEnumerator ImageFadeOut()
     {
+        sceneState = SceneState.FO;
         fadeImage.gameObject.SetActive(true);
         m_color.a = 0f;
         m_color = fadeImage.color;
@@ -77,5 +114,6 @@ public class MySceneManager : MonoBehaviour
             fadeImage.color = m_color;
             yield return null;
         }
+        sceneState = SceneState.OUT;
     }
 }
