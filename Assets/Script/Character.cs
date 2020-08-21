@@ -9,12 +9,6 @@ public enum CharacterState
 
 public class Character : MonoBehaviour
 {
-    [SerializeField] [Header("캐릭터 DB 인덱스")]
-    private int m_CharacterIndex;
-    
-    private TBL_CHARACTER m_Data;
-    public  TBL_CHARACTER data => m_Data;
-
     public CharacterState currentState;
     
     // 공복
@@ -51,13 +45,16 @@ public class Character : MonoBehaviour
 
     private void Awake()
     {
-        DataInit(m_CharacterIndex);
+        DataInit();
     }
     
-    private void DataInit(int characterIndex)
+    private void DataInit()
     {
-        m_Data = TBL_CHARACTER.GetEntity(characterIndex);
-
+        currentFood   = CharacterData.maxFood;
+        currentHealth = CharacterData.maxHealth;
+        currentMental = CharacterData.maxMental;
+        currentLone   = CharacterData.maxLone;
+        
         foodMulti   = Random.Range(BalanceData.minFoodMulti,   BalanceData.maxFoodMulti  );
         healthMulti = Random.Range(BalanceData.minHealthMulti, BalanceData.maxHealthMulti);
         mentalMulti = Random.Range(BalanceData.minMentalMulti, BalanceData.maxMentalMulti);
@@ -90,15 +87,15 @@ public class Character : MonoBehaviour
         currentMental = Mathf.Max(0, currentMental - mentalMulti * BalanceData.mentalConsume  * dt);
         currentLone   = Mathf.Max(0, currentLone   - loneMulti   * BalanceData.loneConsume    * dt);
 
-        if (currentFood   <= BalanceData.escapeRateThreshold * data.maxFood  ) escapeRate = Mathf.Min(100, escapeRate + BalanceData.escapeRateAdd * dt);
-        if (currentHealth <= BalanceData.escapeRateThreshold * data.maxHealth) escapeRate = Mathf.Min(100, escapeRate + BalanceData.escapeRateAdd * dt);
-        if (currentMental <= BalanceData.escapeRateThreshold * data.maxMental) escapeRate = Mathf.Min(100, escapeRate + BalanceData.escapeRateAdd * dt);
-        if (currentLone   <= BalanceData.escapeRateThreshold * data.maxLone  ) escapeRate = Mathf.Min(100, escapeRate + BalanceData.escapeRateAdd * dt);
+        if (currentFood   <= BalanceData.escapeRateThreshold * CharacterData.maxFood  ) escapeRate = Mathf.Min(100, escapeRate + BalanceData.escapeRateAdd * dt);
+        if (currentHealth <= BalanceData.escapeRateThreshold * CharacterData.maxHealth) escapeRate = Mathf.Min(100, escapeRate + BalanceData.escapeRateAdd * dt);
+        if (currentMental <= BalanceData.escapeRateThreshold * CharacterData.maxMental) escapeRate = Mathf.Min(100, escapeRate + BalanceData.escapeRateAdd * dt);
+        if (currentLone   <= BalanceData.escapeRateThreshold * CharacterData.maxLone  ) escapeRate = Mathf.Min(100, escapeRate + BalanceData.escapeRateAdd * dt);
         
-        if (currentFood   >= BalanceData.confirmRateThreshold * data.maxFood  ) confirmRate = Mathf.Max(0, confirmRate + BalanceData.confirmRateThreshold * dt);
-        if (currentHealth >= BalanceData.confirmRateThreshold * data.maxHealth) confirmRate = Mathf.Max(0, confirmRate + BalanceData.confirmRateThreshold * dt);
-        if (currentMental >= BalanceData.confirmRateThreshold * data.maxMental) confirmRate = Mathf.Max(0, confirmRate + BalanceData.confirmRateThreshold * dt);
-        if (currentLone   >= BalanceData.confirmRateThreshold * data.maxLone  ) confirmRate = Mathf.Max(0, confirmRate + BalanceData.confirmRateThreshold * dt);
+        if (currentFood   >= BalanceData.confirmRateThreshold * CharacterData.maxFood  ) confirmRate = Mathf.Max(0, confirmRate + BalanceData.confirmRateThreshold * dt);
+        if (currentHealth >= BalanceData.confirmRateThreshold * CharacterData.maxHealth) confirmRate = Mathf.Max(0, confirmRate + BalanceData.confirmRateThreshold * dt);
+        if (currentMental >= BalanceData.confirmRateThreshold * CharacterData.maxMental) confirmRate = Mathf.Max(0, confirmRate + BalanceData.confirmRateThreshold * dt);
+        if (currentLone   >= BalanceData.confirmRateThreshold * CharacterData.maxLone  ) confirmRate = Mathf.Max(0, confirmRate + BalanceData.confirmRateThreshold * dt);
     }
     
     
@@ -109,12 +106,12 @@ public class Character : MonoBehaviour
             return false;
         }
 
-        currentFood   = Mathf.Min(currentFood   + skillData.foodAddAmount,   data.maxFood  );
-        currentHealth = Mathf.Min(currentHealth + skillData.healthAddAmount, data.maxHealth);
-        currentMental = Mathf.Min(currentMental + skillData.mentalAddAmount, data.maxMental);
-        currentLone   = Mathf.Min(currentLone   + skillData.loneAddAmount,   data.maxLone  );
+        currentFood   = Mathf.Min(currentFood   + skillData.foodAddAmount,   CharacterData.maxFood  );
+        currentHealth = Mathf.Min(currentHealth + skillData.healthAddAmount, CharacterData.maxHealth);
+        currentMental = Mathf.Min(currentMental + skillData.mentalAddAmount, CharacterData.maxMental);
+        currentLone   = Mathf.Min(currentLone   + skillData.loneAddAmount,   CharacterData.maxLone  );
 
-        currentSkillCoolDown = data.skillCoolDown;
+        currentSkillCoolDown = CharacterData.skillCoolDown;
         
         return true;
     }
