@@ -45,7 +45,6 @@ public class GameManager : MonoBehaviour
     int maxRoom;
 
 
-
     private void Start()
     {
         mgrScene = FindObjectOfType<MySceneManager>();
