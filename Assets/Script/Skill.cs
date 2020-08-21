@@ -12,8 +12,6 @@ public class Skill : MonoBehaviour
     private TBL_SKILL m_Data;
     public  TBL_SKILL data => m_Data;
     
-    // 남은 스킬 사용 갯수
-    public int remainUseAmount; // ??????????????????????? 디폴트 값 기획자한테 물어봐야함
 
     private void Awake()
     {
@@ -34,18 +32,10 @@ public class Skill : MonoBehaviour
             Debug.LogError($"[X] CharacterManager.Instance.characters[{characterIndex}] is Null Reference");
             return;
         }
-
-        // 스킬 남은 사용 갯수가 0일때 
-        if (remainUseAmount == 0)
-        {
-            // 뭔가 처리해주삼
-            return;
-        }
+        
 
         if (character.TryUseSkill(m_Data))
         {
-            remainUseAmount -= 1;
-            
             // 스킬 사용이 잘 되었다는 메시지
         }
         else

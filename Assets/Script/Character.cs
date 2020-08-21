@@ -61,11 +61,11 @@ public class Character : MonoBehaviour
 
         currentSkillCoolDown = 0f;
 
-        remainConfirmDate    = 10000000;       // ? 기획자한테 물어봐야함
+        remainConfirmDate    = Random.Range(BalanceData.minRemainConfirmDate, BalanceData.maxRemainConfirmDate);
 
-        confirmRate          = 100000000;      // ? 기획자한테 물어봐야함
+        confirmRate          = Random.Range(BalanceData.minConfirmRate, BalanceData.maxConfirmRate);
         
-        escapeRate            = 0f;
+        escapeRate           = 0f;
     }
 
     private void Update()

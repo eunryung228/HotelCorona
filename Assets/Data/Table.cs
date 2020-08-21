@@ -688,6 +688,50 @@ using BansheeGz.BGDatabase;
 					_loneConsume[Index] = value;
 				}
 			}
+			public System.Int32 minRemainConfirmDate
+			{
+				get
+				{
+					return _minRemainConfirmDate[Index];
+				}
+				set
+				{
+					_minRemainConfirmDate[Index] = value;
+				}
+			}
+			public System.Int32 maxRemainConfirmDate
+			{
+				get
+				{
+					return _maxRemainConfirmDate[Index];
+				}
+				set
+				{
+					_maxRemainConfirmDate[Index] = value;
+				}
+			}
+			public System.Single minConfirmRate
+			{
+				get
+				{
+					return _minConfirmRate[Index];
+				}
+				set
+				{
+					_minConfirmRate[Index] = value;
+				}
+			}
+			public System.Single maxConfirmRate
+			{
+				get
+				{
+					return _maxConfirmRate[Index];
+				}
+				set
+				{
+					_maxConfirmRate[Index] = value;
+				}
+			}
 			private static BansheeGz.BGDatabase.BGFieldEntityName _ufle12jhs77_name;
 			public static BansheeGz.BGDatabase.BGFieldEntityName _name
 			{
@@ -812,6 +856,42 @@ using BansheeGz.BGDatabase;
 				{
 					if(_ufle12jhs77_loneConsume==null || _ufle12jhs77_loneConsume.IsDeleted) _ufle12jhs77_loneConsume=(BansheeGz.BGDatabase.BGFieldFloat) MetaDefault.GetField(new BGId(5126780611046278641,13611182767049129613));
 					return _ufle12jhs77_loneConsume;
+				}
+			}
+			private static BansheeGz.BGDatabase.BGFieldInt _ufle12jhs77_minRemainConfirmDate;
+			public static BansheeGz.BGDatabase.BGFieldInt _minRemainConfirmDate
+			{
+				get
+				{
+					if(_ufle12jhs77_minRemainConfirmDate==null || _ufle12jhs77_minRemainConfirmDate.IsDeleted) _ufle12jhs77_minRemainConfirmDate=(BansheeGz.BGDatabase.BGFieldInt) MetaDefault.GetField(new BGId(5569804470578609191,10450431442601021843));
+					return _ufle12jhs77_minRemainConfirmDate;
+				}
+			}
+			private static BansheeGz.BGDatabase.BGFieldInt _ufle12jhs77_maxRemainConfirmDate;
+			public static BansheeGz.BGDatabase.BGFieldInt _maxRemainConfirmDate
+			{
+				get
+				{
+					if(_ufle12jhs77_maxRemainConfirmDate==null || _ufle12jhs77_maxRemainConfirmDate.IsDeleted) _ufle12jhs77_maxRemainConfirmDate=(BansheeGz.BGDatabase.BGFieldInt) MetaDefault.GetField(new BGId(4785815542242962077,2917956962569713335));
+					return _ufle12jhs77_maxRemainConfirmDate;
+				}
+			}
+			private static BansheeGz.BGDatabase.BGFieldFloat _ufle12jhs77_minConfirmRate;
+			public static BansheeGz.BGDatabase.BGFieldFloat _minConfirmRate
+			{
+				get
+				{
+					if(_ufle12jhs77_minConfirmRate==null || _ufle12jhs77_minConfirmRate.IsDeleted) _ufle12jhs77_minConfirmRate=(BansheeGz.BGDatabase.BGFieldFloat) MetaDefault.GetField(new BGId(5193366495866261401,5142301235395356548));
+					return _ufle12jhs77_minConfirmRate;
+				}
+			}
+			private static BansheeGz.BGDatabase.BGFieldFloat _ufle12jhs77_maxConfirmRate;
+			public static BansheeGz.BGDatabase.BGFieldFloat _maxConfirmRate
+			{
+				get
+				{
+					if(_ufle12jhs77_maxConfirmRate==null || _ufle12jhs77_maxConfirmRate.IsDeleted) _ufle12jhs77_maxConfirmRate=(BansheeGz.BGDatabase.BGFieldFloat) MetaDefault.GetField(new BGId(5486123904841492764,15476280909132720038));
+					return _ufle12jhs77_maxConfirmRate;
 				}
 			}
 			private static readonly TBL_CHARACTER.Factory _factory0_PFS = new TBL_CHARACTER.Factory();
