@@ -18,23 +18,23 @@ public class Character : MonoBehaviour
     public CharacterState currentState;
     
     // 공복
-    public float currentFood;
-    public float foodMulti;
+    public  float currentFood;
+    private float foodMulti;
 
     // 건강
-    public float currentHealth;
-    public float healthMulti;
+    public  float currentHealth;
+    private float healthMulti;
 
     // 정신력
-    public float currentMental;
-    public float mentalMulti;
+    public  float currentMental;
+    private float mentalMulti;
 
     // 외로움
-    public float currentLone;
-    public float loneMulti;
+    public  float currentLone;
+    private float loneMulti;
 
     // 현재 스킬 쿨타임
-    public float currentSkillCoolDown;
+    private float currentSkillCoolDown;
     
     // 확진일까지 남은 날
     public int remainConfirmDate;
@@ -54,27 +54,37 @@ public class Character : MonoBehaviour
     {
         m_Data = TBL_CHARACTER.GetEntity(characterIndex);
 
-        foodMulti   = Random.Range(BalanceData.minFoodMulti,   BalanceData.maxFoodMulti);
+        foodMulti   = Random.Range(BalanceData.minFoodMulti,   BalanceData.maxFoodMulti  );
         healthMulti = Random.Range(BalanceData.minHealthMulti, BalanceData.maxHealthMulti);
         mentalMulti = Random.Range(BalanceData.minMentalMulti, BalanceData.maxMentalMulti);
-        loneMulti   = Random.Range(BalanceData.minLoneMulti,   BalanceData.maxLoneMulti);
+        loneMulti   = Random.Range(BalanceData.minLoneMulti,   BalanceData.maxLoneMulti  );
 
         currentSkillCoolDown = 0f;
 
-        remainConfirmDate = 10000000; // ? 기획자한테 물어봐야함
+        remainConfirmDate    = 10000000;       // ? 기획자한테 물어봐야함
 
-        confirmRate = 100000000;      // ? 기획자한테 물어봐야함
+        confirmRate          = 100000000;      // ? 기획자한테 물어봐야함
         
-        escapeRate = 0f;
+        escapeRate            = 0f;
     }
 
     private void Update()
     {
+        // 하루 시작 <--> 하루 종료 상태 사이일때만 반영하도록 바꿔야함
+        
+        float dt = Time.deltaTime;
+        
         if (currentSkillCoolDown > 0)
         {
-            currentSkillCoolDown -= Time.deltaTime;
+            currentSkillCoolDown -= dt;
         }
+
+        currentFood   = Mathf.Max(0, currentFood   - foodMulti   * BalanceData.foodConsume    * dt);
+        currentHealth = Mathf.Max(0, currentHealth - healthMulti * BalanceData.healthConsume  * dt);
+        currentMental = Mathf.Max(0, currentMental - mentalMulti * BalanceData.mentalConsume  * dt);
+        currentLone   = Mathf.Max(0, currentLone   - loneMulti   * BalanceData.loneConsume    * dt);
     }
+    
     
     public bool TryUseSkill(TBL_SKILL skillData)
     {
@@ -83,11 +93,10 @@ public class Character : MonoBehaviour
             return false;
         }
 
-        // ? 최대값 있는지 기획자한테 물어봐야함
-        currentFood   = Mathf.Min(currentFood   + skillData.foodAddAmount,   100f);
-        currentHealth = Mathf.Min(currentHealth + skillData.healthAddAmount, 100f);
-        currentMental = Mathf.Min(currentMental + skillData.mentalAddAmount, 100f);
-        currentLone   = Mathf.Min(currentLone   + skillData.loneAddAmount,   100f);
+        currentFood   = Mathf.Min(currentFood   + skillData.foodAddAmount,   data.maxFood  );
+        currentHealth = Mathf.Min(currentHealth + skillData.healthAddAmount, data.maxHealth);
+        currentMental = Mathf.Min(currentMental + skillData.mentalAddAmount, data.maxMental);
+        currentLone   = Mathf.Min(currentLone   + skillData.loneAddAmount,   data.maxLone  );
 
         currentSkillCoolDown = data.skillCoolDown;
         

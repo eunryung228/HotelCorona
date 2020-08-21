@@ -44,6 +44,8 @@ public class Skill : MonoBehaviour
 
         if (character.TryUseSkill(m_Data))
         {
+            remainUseAmount -= 1;
+            
             // 스킬 사용이 잘 되었다는 메시지
         }
         else

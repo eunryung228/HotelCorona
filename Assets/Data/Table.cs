@@ -65,15 +65,15 @@ using BansheeGz.BGDatabase;
 					_name[Index] = value;
 				}
 			}
-			public System.Single maxFoodStat
+			public System.Single maxFood
 			{
 				get
 				{
-					return _maxFoodStat[Index];
+					return _maxFood[Index];
 				}
 				set
 				{
-					_maxFoodStat[Index] = value;
+					_maxFood[Index] = value;
 				}
 			}
 			public System.Single maxHealth
@@ -98,6 +98,17 @@ using BansheeGz.BGDatabase;
 					_maxMental[Index] = value;
 				}
 			}
+			public System.Single maxLone
+			{
+				get
+				{
+					return _maxLone[Index];
+				}
+				set
+				{
+					_maxLone[Index] = value;
+				}
+			}
 			public System.Single skillCoolDown
 			{
 				get
@@ -118,13 +129,13 @@ using BansheeGz.BGDatabase;
 					return _ufle12jhs77_name;
 				}
 			}
-			private static BansheeGz.BGDatabase.BGFieldFloat _ufle12jhs77_maxFoodStat;
-			public static BansheeGz.BGDatabase.BGFieldFloat _maxFoodStat
+			private static BansheeGz.BGDatabase.BGFieldFloat _ufle12jhs77_maxFood;
+			public static BansheeGz.BGDatabase.BGFieldFloat _maxFood
 			{
 				get
 				{
-					if(_ufle12jhs77_maxFoodStat==null || _ufle12jhs77_maxFoodStat.IsDeleted) _ufle12jhs77_maxFoodStat=(BansheeGz.BGDatabase.BGFieldFloat) MetaDefault.GetField(new BGId(4904864690131797066,8139986306665826994));
-					return _ufle12jhs77_maxFoodStat;
+					if(_ufle12jhs77_maxFood==null || _ufle12jhs77_maxFood.IsDeleted) _ufle12jhs77_maxFood=(BansheeGz.BGDatabase.BGFieldFloat) MetaDefault.GetField(new BGId(4904864690131797066,8139986306665826994));
+					return _ufle12jhs77_maxFood;
 				}
 			}
 			private static BansheeGz.BGDatabase.BGFieldFloat _ufle12jhs77_maxHealth;
@@ -143,6 +154,15 @@ using BansheeGz.BGDatabase;
 				{
 					if(_ufle12jhs77_maxMental==null || _ufle12jhs77_maxMental.IsDeleted) _ufle12jhs77_maxMental=(BansheeGz.BGDatabase.BGFieldFloat) MetaDefault.GetField(new BGId(5407151573568413580,4746363068103038094));
 					return _ufle12jhs77_maxMental;
+				}
+			}
+			private static BansheeGz.BGDatabase.BGFieldFloat _ufle12jhs77_maxLone;
+			public static BansheeGz.BGDatabase.BGFieldFloat _maxLone
+			{
+				get
+				{
+					if(_ufle12jhs77_maxLone==null || _ufle12jhs77_maxLone.IsDeleted) _ufle12jhs77_maxLone=(BansheeGz.BGDatabase.BGFieldFloat) MetaDefault.GetField(new BGId(5373077151468256591,1483170474168171401));
+					return _ufle12jhs77_maxLone;
 				}
 			}
 			private static BansheeGz.BGDatabase.BGFieldFloat _ufle12jhs77_skillCoolDown;
