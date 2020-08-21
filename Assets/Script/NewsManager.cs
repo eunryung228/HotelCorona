@@ -17,12 +17,14 @@ public class NewsManager : MonoBehaviour
     {
         newsText = GetComponent<Text>();
         newsText.text = "";
+        NewsOn();
     }
 
     public void NewsOn()
     {
-        SetNews("오늘의 뉴스입니다."); // 임시
+        newsText.text = "오늘의 뉴스입니다."; // 임시
         // SetNormalNews();
+        StartCoroutine(NewsCoroutine());
     }
 
 
@@ -34,7 +36,6 @@ public class NewsManager : MonoBehaviour
         // news number 저장
 
         // 코루틴 시작
-        StopCoroutine(NewsCoroutine());
         StartCoroutine(NewsCoroutine());
     }
 
@@ -44,13 +45,6 @@ public class NewsManager : MonoBehaviour
         
     }
 
-
-    // 임시
-    public void SetNews(string news)
-    {
-        newsText.text = news;
-        StartCoroutine(NewsCoroutine());
-    }
 
     IEnumerator NewsCoroutine()
     {
