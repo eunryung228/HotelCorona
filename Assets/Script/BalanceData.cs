@@ -30,4 +30,12 @@ public static class BalanceData
     public static float healthConsume        => m_Data.healthConsume;
     public static float mentalConsume        => m_Data.mentalConsume;
     public static float loneConsume          => m_Data.loneConsume;
+    
+    // 확진일까지 남은 날
+    public static int minRemainConfirmDate   => m_Data.minRemainConfirmDate;
+    public static int maxRemainConfirmDate   => m_Data.minRemainConfirmDate;
+
+    // 확진 확률
+    public static float minConfirmRate       => m_Data.minConfirmRate;
+    public static float maxConfirmRate       => m_Data.maxConfirmRate;
 }

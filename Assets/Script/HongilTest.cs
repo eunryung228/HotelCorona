@@ -8,7 +8,7 @@ public class HongilTest : MonoBehaviour
     {
         // TBL_CHARACTER 데이터 하나 읽기 (3번째 위치 데이터)
         var data = TBL_CHARACTER.GetEntity(2);
-        Debug.Log(data.maxFoodStat);
+        Debug.Log(data.maxFood);
         Debug.Log(data.maxHealth);
         Debug.Log(data.maxMental);
         
@@ -17,7 +17,7 @@ public class HongilTest : MonoBehaviour
         {
             var temp = TBL_CHARACTER.GetEntity(i);
             Debug.Log(temp.maxHealth);
-            Debug.Log(temp.maxFoodStat);
+            Debug.Log(temp.maxFood);
         }
         
         
