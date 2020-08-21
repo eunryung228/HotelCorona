@@ -1,55 +1,87 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using MonsterLove;
+using MonsterLove.StateMachine;
 
-public enum CharacterState
-{
-    //Netflix,
-}
 
-public class Character : MonoBehaviour
+
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
+public partial class Character : MonoBehaviour
 {
-    public CharacterState currentState;
-    
-    // 공복
+    [Header("공복")]
     public  float currentFood;
     private float foodMulti;
 
-    // 건강
+    [Header("건강")]
     public  float currentHealth;
     private float healthMulti;
 
-    // 정신력
+    [Header("정신력")]
     public  float currentMental;
     private float mentalMulti;
 
-    // 외로움
+    [Header("외로움")]
     public  float currentLone;
     private float loneMulti;
 
     // 현재 스킬 쿨타임
     private float currentSkillCoolDown;
     
-    // 확진일까지 남은 날
+    [Header("확진일까지 남은 날")]
     public int remainConfirmDate;
 
-    // 확진 확률
+    [Header("확진 확률")]
     public float confirmRate;
     
-    // 탈출 확률
+    [Header("탈출 확률")]
     public float escapeRate;
     
-    
-    // 생성된 날짜
+    [Header("날짜")]
     public int day;
 
+
+    private enum CharacterType
+    {
+        Daughter,
+        Grandma,
+        Grandpa,
+        Mama,
+        Papa,
+        
+        Count,
+    }
+    
+    // FSM
+    private enum FSMState
+    {
+        None,
+        Idle,
+        Front,
+        Back,
+        Move,
+    }
+
+    private StateMachine<FSMState> m_FSM;
+
+    private Animator       m_Animator;
+    private SpriteRenderer m_SpriteRenderer;
+
+    private CharacterType m_CharacterType;
+    
     private void Awake()
     {
+        m_Animator       = GetComponent<Animator>();
+        m_SpriteRenderer = GetComponent<SpriteRenderer>();
+        
+        m_FSM = StateMachine<FSMState>.Initialize(this, FSMState.None);
+        
         DataInit();
     }
     
     private void DataInit()
     {
+        m_CharacterType = (CharacterType) Random.Range(0, (int)CharacterType.Count);
+
         currentFood   = CharacterData.maxFood;
         currentHealth = CharacterData.maxHealth;
         currentMental = CharacterData.maxMental;
@@ -69,11 +101,15 @@ public class Character : MonoBehaviour
         escapeRate           = 0f;
 
         day                  = 0;
+        
+        m_FSM.ChangeState(FSMState.Idle);
     }
 
     private void Update()
     {
         // 하루 시작 <--> 하루 종료 상태 사이일때만 반영하도록 바꿔야함
+        if (m_FSM.State == FSMState.None) return;
+        
         
         float dt = Time.deltaTime;
         
@@ -114,5 +150,56 @@ public class Character : MonoBehaviour
         currentSkillCoolDown = CharacterData.skillCoolDown;
         
         return true;
+    }
+}
+
+// FSM
+public partial class Character : MonoBehaviour
+{
+    [Header("목적지")]
+    public Vector3 DestinationPosition;
+    public Vector3 CurrentPosition => transform.position;
+
+    private float m_MoveSpeed = 1f;
+    
+    private void Idle_Enter()
+    {
+        DestinationPosition = CurrentPosition + new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f));
+
+        if (CurrentPosition.y < DestinationPosition.y)
+        {
+            m_FSM.ChangeState(FSMState.Back);
+        }
+        else
+        {
+            m_FSM.ChangeState(FSMState.Front);
+        }
+    }
+
+    private void Front_Enter()
+    {
+        m_Animator.Play($"{m_CharacterType}_Front");
+        m_SpriteRenderer.flipX = CurrentPosition.x < DestinationPosition.x;
+        
+        m_FSM.ChangeState(FSMState.Move);
+    }
+
+    private void Back_Enter()
+    {
+        m_Animator.Play($"{m_CharacterType}_Back");
+        m_SpriteRenderer.flipX = CurrentPosition.x < DestinationPosition.x;
+        
+        m_FSM.ChangeState(FSMState.Move);
+    }
+
+    private void Move_Update()
+    {
+        if (Vector3.Distance(CurrentPosition, DestinationPosition) < m_MoveSpeed)
+        {
+            m_FSM.ChangeState(FSMState.Idle);
+            return;
+        }
+
+        transform.position = Vector2.MoveTowards(CurrentPosition, DestinationPosition, m_MoveSpeed * Time.deltaTime);
     }
 }
