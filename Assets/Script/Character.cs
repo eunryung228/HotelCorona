@@ -4,10 +4,19 @@ using MonsterLove.StateMachine;
 
 
 
+public enum CharacterState
+{
+    Live,
+    Death
+}
+
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
 public partial class Character : MonoBehaviour
 {
+    [Header("룸")] 
+    public Room room;
+    
     [Header("공복")]
     public  float currentFood;
     private float foodMulti;
@@ -39,7 +48,9 @@ public partial class Character : MonoBehaviour
     [Header("날짜")]
     public int day;
 
-
+    [Header("캐릭터 상태")]
+    public CharacterState CurrentState = CharacterState.Live;
+    
     private enum CharacterType
     {
         Daughter,
@@ -56,10 +67,12 @@ public partial class Character : MonoBehaviour
     private enum FSMState
     {
         None,
+        Start,
         Idle,
         Front,
         Back,
         Move,
+        Die
     }
 
     private StateMachine<FSMState> m_FSM;
@@ -103,7 +116,12 @@ public partial class Character : MonoBehaviour
 
         day                  = 0;
         
-        m_FSM.ChangeState(FSMState.Idle);
+        m_FSM.ChangeState(FSMState.None);
+    }
+
+    private void Start()
+    {
+        m_FSM.ChangeState(FSMState.Start);
     }
 
     private void Update()
@@ -152,6 +170,11 @@ public partial class Character : MonoBehaviour
         
         return true;
     }
+
+    public void Die()
+    {
+        m_FSM.ChangeState(FSMState.Die, StateTransition.Overwrite);
+    }
 }
 
 // FSM
@@ -162,10 +185,18 @@ public partial class Character : MonoBehaviour
     public Vector3 CurrentPosition => transform.position;
 
     private float m_MoveSpeed = 1f;
+
+    private void Start_Enter()
+    {
+        transform.position = room.GetRandomPosition();
+        
+        m_FSM.ChangeState(FSMState.Idle);
+    }
+    
     
     private void Idle_Enter()
     {
-        DestinationPosition = CurrentPosition + new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f));
+        DestinationPosition = room.GetRandomPosition();
 
         if (CurrentPosition.y < DestinationPosition.y)
         {
@@ -202,5 +233,11 @@ public partial class Character : MonoBehaviour
         }
 
         transform.position = Vector2.MoveTowards(CurrentPosition, DestinationPosition, m_MoveSpeed * Time.deltaTime);
+    }
+
+    private void Die_Enter()
+    {
+        CurrentState = CharacterState.Death;
+        m_SpriteRenderer.enabled = false;
     }
 }
