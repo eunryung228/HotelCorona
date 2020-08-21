@@ -4,6 +4,30 @@ using UnityEngine;
 
 public static class BalanceData
 {
-    public static int newQuarantine   => TBL_DATA.GetEntity(0).newQuarantine;
-    public static float minFoodMulti => TBL_DATA.GetEntity(0).minFoodMulti;
+    private static TBL_DATA m_Data => TBL_DATA.GetEntity(0);
+    
+    // 일일 추가 격리자
+    public static int   newQuarantine        => m_Data.newQuarantine;     
+    
+    // 공복 배율 범위
+    public static float minFoodMulti         => m_Data.minFoodMulti;      
+    public static float maxFoodMulti         => m_Data.maxFoodMulti;
+    
+    // 건강 배율 범위
+    public static float minHealthMulti       => m_Data.minHealthMulti;
+    public static float maxHealthMulti       => m_Data.maxHealthMulti;
+    
+    // 정신력 배율 범위
+    public static float minMentalMulti       => m_Data.minMentalMulti;
+    public static float maxMentalMulti       => m_Data.maxMentalMulti;
+    
+    // 외로움 배율 범위
+    public static float minLoneMulti         => m_Data.minLoneMulti;
+    public static float maxLoneMulti         => m_Data.maxHealthMulti;
+    
+    // 4대 스탯 소모
+    public static float foodConsume          => m_Data.foodConsume;
+    public static float healthConsume        => m_Data.healthConsume;
+    public static float mentalConsume        => m_Data.mentalConsume;
+    public static float loneConsume          => m_Data.loneConsume;
 }

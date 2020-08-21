@@ -31,5 +31,6 @@ public class HongilTest : MonoBehaviour
         
         // 밸런스 데이터는 예외로 데이터가 한개라서 정적클래스로 만듬
         Debug.Log(BalanceData.newQuarantine);
+        Debug.Log(BalanceData.loneConsume);
     }
 }
