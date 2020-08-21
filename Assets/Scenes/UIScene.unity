@@ -955,7 +955,7 @@ GameObject:
   - component: {fileID: 378101936}
   - component: {fileID: 378101935}
   m_Layer: 5
-  m_Name: Img_PassDay
+  m_Name: Img_FailDay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1313,7 +1313,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC77C\uC77C \uD655\uC9C4\uC790"
+  m_Text: "\uCD1D \uD655\uC9C4\uC790"
 --- !u!222 &477655058
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1334,7 +1334,7 @@ GameObject:
   - component: {fileID: 478558509}
   - component: {fileID: 478558508}
   m_Layer: 5
-  m_Name: Text_TodayCure
+  m_Name: Text_AllCure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1699,7 +1699,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC77C\uC77C \uCE58\uB8CC \uC778\uC6D0"
+  m_Text: "\uCD1D \uCE58\uB8CC \uC778\uC6D0"
 --- !u!222 &544773341
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1851,7 +1851,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC624\uB298\uB3C4 \uBB34\uC0AC\uD788"
+  m_Text: "\uACA9\uB9AC \uC2E4\uD328"
 --- !u!222 &646353658
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2024,7 +2024,7 @@ GameObject:
   - component: {fileID: 898959800}
   - component: {fileID: 898959799}
   m_Layer: 5
-  m_Name: Text_PassDay
+  m_Name: Text_FailDay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2081,7 +2081,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uAE08\uC77C \uACA9\uB9AC\uC790\uB4E4\uC744 \uC798 \uAD00\uB9AC\uD588\uC2B5\uB2C8\uB2E4."
+  m_Text: "\uC790\uAC00\uACA9\uB9AC\uC790\uB4E4\uC744 \uAD00\uB9AC\uD558\uB294\uB370
+    \uC2E4\uD328\uD588\uC2B5\uB2C8\uB2E4."
 --- !u!222 &898959800
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2447,7 +2448,7 @@ GameObject:
   - component: {fileID: 992467194}
   - component: {fileID: 992467193}
   m_Layer: 5
-  m_Name: Text_TodayConfirm
+  m_Name: Text_AllConfirm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2660,7 +2661,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC77C\uC77C \uD0C8\uCD9C \uC778\uC6D0"
+  m_Text: "\uCD1D \uD0C8\uCD9C \uC778\uC6D0"
 --- !u!222 &1100801441
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3135,7 +3136,7 @@ GameObject:
   - component: {fileID: 1368523509}
   - component: {fileID: 1368523508}
   m_Layer: 5
-  m_Name: Text_TodayEscape
+  m_Name: Text_AllEscape
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

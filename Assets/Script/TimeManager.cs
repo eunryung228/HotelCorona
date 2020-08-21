@@ -31,12 +31,12 @@ public class TimeManager : MonoBehaviour
     {
         if (!mgrGame.backPanel.activeSelf && !FindObjectOfType<MySceneManager>().fadeImage.gameObject.activeSelf)
         {
-            Debug.Log(sec);
             time += Time.deltaTime;
             sec = Mathf.Ceil(time);
             timeText.text = min.ToString("D2") + ":" + ((int)sec).ToString("D2");
 
             // temp
+            /*
             if (sec >= 3)
             {
                 time = 0;
@@ -44,6 +44,7 @@ public class TimeManager : MonoBehaviour
                 sec = 0;
                 FindObjectOfType<GameManager>().CheckConfirmNum();
             }
+            */
 
             if (sec >= 60)
             {
