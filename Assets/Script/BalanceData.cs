@@ -38,4 +38,12 @@ public static class BalanceData
     // 확진 확률
     public static float minConfirmRate       => m_Data.minConfirmRate;
     public static float maxConfirmRate       => m_Data.maxConfirmRate;
+    
+    // 스탯 역치
+    public static float escapeRateThreshold  => m_Data.escapeRateThreshold;
+    public static float confirmRateThreshold => m_Data.confirmRateThreshold;
+    
+    // 증감값
+    public static float escapeRateAdd        => m_Data.escapeRateAdd;
+    public static float confirmRateAdd       => m_Data.confirmRateAdd;
 }

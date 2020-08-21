@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum CharacterState
 {
-    // ????????????????????????????
+    //Netflix,
 }
 
 public class Character : MonoBehaviour
@@ -44,6 +44,10 @@ public class Character : MonoBehaviour
     
     // 탈출 확률
     public float escapeRate;
+    
+    
+    // 생성된 날짜
+    public int day;
 
     private void Awake()
     {
@@ -66,6 +70,8 @@ public class Character : MonoBehaviour
         confirmRate          = Random.Range(BalanceData.minConfirmRate, BalanceData.maxConfirmRate);
         
         escapeRate           = 0f;
+
+        day                  = 0;
     }
 
     private void Update()
@@ -83,6 +89,16 @@ public class Character : MonoBehaviour
         currentHealth = Mathf.Max(0, currentHealth - healthMulti * BalanceData.healthConsume  * dt);
         currentMental = Mathf.Max(0, currentMental - mentalMulti * BalanceData.mentalConsume  * dt);
         currentLone   = Mathf.Max(0, currentLone   - loneMulti   * BalanceData.loneConsume    * dt);
+
+        if (currentFood   <= BalanceData.escapeRateThreshold * data.maxFood  ) escapeRate = Mathf.Min(100, escapeRate + BalanceData.escapeRateAdd * dt);
+        if (currentHealth <= BalanceData.escapeRateThreshold * data.maxHealth) escapeRate = Mathf.Min(100, escapeRate + BalanceData.escapeRateAdd * dt);
+        if (currentMental <= BalanceData.escapeRateThreshold * data.maxMental) escapeRate = Mathf.Min(100, escapeRate + BalanceData.escapeRateAdd * dt);
+        if (currentLone   <= BalanceData.escapeRateThreshold * data.maxLone  ) escapeRate = Mathf.Min(100, escapeRate + BalanceData.escapeRateAdd * dt);
+        
+        if (currentFood   >= BalanceData.confirmRateThreshold * data.maxFood  ) confirmRate = Mathf.Max(0, confirmRate + BalanceData.confirmRateThreshold * dt);
+        if (currentHealth >= BalanceData.confirmRateThreshold * data.maxHealth) confirmRate = Mathf.Max(0, confirmRate + BalanceData.confirmRateThreshold * dt);
+        if (currentMental >= BalanceData.confirmRateThreshold * data.maxMental) confirmRate = Mathf.Max(0, confirmRate + BalanceData.confirmRateThreshold * dt);
+        if (currentLone   >= BalanceData.confirmRateThreshold * data.maxLone  ) confirmRate = Mathf.Max(0, confirmRate + BalanceData.confirmRateThreshold * dt);
     }
     
     
