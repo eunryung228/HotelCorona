@@ -26,7 +26,21 @@ public class MySceneManager : MonoBehaviour
     {
         yield return StartCoroutine(ImageFadeOut());
         SceneManager.UnloadSceneAsync(currScene);
+        FindObjectOfType<GameManager>().StartDay();
         SceneManager.LoadScene(scene, LoadSceneMode.Additive);
+        StartCoroutine(ImageFadeIn());
+    }
+
+    public void PlayPassDay()
+    {
+        StartCoroutine(PassDayCoroutine());
+    }
+
+    IEnumerator PassDayCoroutine()
+    {
+        yield return StartCoroutine(ImageFadeOut());
+        FindObjectOfType<TimeManager>().ResetTimeText();
+        FindObjectOfType<DateManager>().PassDay();
         StartCoroutine(ImageFadeIn());
     }
 

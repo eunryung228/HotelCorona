@@ -16,6 +16,4 @@ public class DateManager : MonoBehaviour
         date += 1;
         textDate.text = date.ToString("D2");
     }
-
-
 }

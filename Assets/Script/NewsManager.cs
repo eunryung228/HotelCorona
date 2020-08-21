@@ -17,6 +17,10 @@ public class NewsManager : MonoBehaviour
     {
         newsText = GetComponent<Text>();
         newsText.text = "";
+    }
+
+    public void NewsOn()
+    {
         SetNews("오늘의 뉴스입니다."); // 임시
         // SetNormalNews();
     }
