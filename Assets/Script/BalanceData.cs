@@ -7,7 +7,7 @@ public static class BalanceData
     private static TBL_DATA m_Data => TBL_DATA.GetEntity(0);
     
     // 일일 추가 격리자
-    public static int   newQuarantine        => m_Data.newQuarantine;     
+    public static List<int> newQuarantine    => m_Data.newQuarantine;     
     
     // 공복 배율 범위
     public static float minFoodMulti         => m_Data.minFoodMulti;      

@@ -285,6 +285,17 @@ using BansheeGz.BGDatabase;
 					_name[Index] = value;
 				}
 			}
+			public SkillType skillType
+			{
+				get
+				{
+					return (SkillType) _skillType[Index];
+				}
+				set
+				{
+					_skillType[Index] = value;
+				}
+			}
 			public System.Single foodAddAmount
 			{
 				get
@@ -369,6 +380,15 @@ using BansheeGz.BGDatabase;
 				{
 					if(_ufle12jhs77_name==null || _ufle12jhs77_name.IsDeleted) _ufle12jhs77_name=(BansheeGz.BGDatabase.BGFieldEntityName) MetaDefault.GetField(new BGId(5703157086491013357,10658899914776718216));
 					return _ufle12jhs77_name;
+				}
+			}
+			private static BansheeGz.BGDatabase.BGFieldEnum _ufle12jhs77_skillType;
+			public static BansheeGz.BGDatabase.BGFieldEnum _skillType
+			{
+				get
+				{
+					if(_ufle12jhs77_skillType==null || _ufle12jhs77_skillType.IsDeleted) _ufle12jhs77_skillType=(BansheeGz.BGDatabase.BGFieldEnum) MetaDefault.GetField(new BGId(5574031542422563872,9353492498222809995));
+					return _ufle12jhs77_skillType;
 				}
 			}
 			private static BansheeGz.BGDatabase.BGFieldFloat _ufle12jhs77_foodAddAmount;
@@ -545,7 +565,7 @@ using BansheeGz.BGDatabase;
 					_name[Index] = value;
 				}
 			}
-			public System.Int32 newQuarantine
+			public System.Collections.Generic.List<System.Int32> newQuarantine
 			{
 				get
 				{
@@ -785,12 +805,12 @@ using BansheeGz.BGDatabase;
 					return _ufle12jhs77_name;
 				}
 			}
-			private static BansheeGz.BGDatabase.BGFieldInt _ufle12jhs77_newQuarantine;
-			public static BansheeGz.BGDatabase.BGFieldInt _newQuarantine
+			private static BansheeGz.BGDatabase.BGFieldListInt _ufle12jhs77_newQuarantine;
+			public static BansheeGz.BGDatabase.BGFieldListInt _newQuarantine
 			{
 				get
 				{
-					if(_ufle12jhs77_newQuarantine==null || _ufle12jhs77_newQuarantine.IsDeleted) _ufle12jhs77_newQuarantine=(BansheeGz.BGDatabase.BGFieldInt) MetaDefault.GetField(new BGId(5748396231717261856,12692094512781103775));
+					if(_ufle12jhs77_newQuarantine==null || _ufle12jhs77_newQuarantine.IsDeleted) _ufle12jhs77_newQuarantine=(BansheeGz.BGDatabase.BGFieldListInt) MetaDefault.GetField(new BGId(5706618661672357845,10753250621521290637));
 					return _ufle12jhs77_newQuarantine;
 				}
 			}
