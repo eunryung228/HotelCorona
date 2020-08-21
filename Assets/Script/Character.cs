@@ -4,6 +4,12 @@ using MonsterLove.StateMachine;
 
 
 
+public enum CharacterState
+{
+    Live,
+    Death
+}
+
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
 public partial class Character : MonoBehaviour
@@ -42,7 +48,9 @@ public partial class Character : MonoBehaviour
     [Header("날짜")]
     public int day;
 
-
+    [Header("캐릭터 상태")]
+    public CharacterState CurrentState = CharacterState.Live;
+    
     private enum CharacterType
     {
         Daughter,
@@ -229,6 +237,7 @@ public partial class Character : MonoBehaviour
 
     private void Die_Enter()
     {
+        CurrentState = CharacterState.Death;
         m_SpriteRenderer.enabled = false;
     }
 }
