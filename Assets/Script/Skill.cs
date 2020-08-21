@@ -14,7 +14,11 @@ public class Skill : MonoBehaviour
     
     // 남은 스킬 사용 갯수
     public int remainUseAmount; // ??????????????????????? 디폴트 값 기획자한테 물어봐야함
-    
+
+    private void Awake()
+    {
+        DataInit(m_SkillIndex);
+    }
     
     private void DataInit(int skillIndex)
     {
