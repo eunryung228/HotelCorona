@@ -732,6 +732,50 @@ using BansheeGz.BGDatabase;
 					_maxConfirmRate[Index] = value;
 				}
 			}
+			public System.Single escapeRateThreshold
+			{
+				get
+				{
+					return _escapeRateThreshold[Index];
+				}
+				set
+				{
+					_escapeRateThreshold[Index] = value;
+				}
+			}
+			public System.Single confirmRateThreshold
+			{
+				get
+				{
+					return _confirmRateThreshold[Index];
+				}
+				set
+				{
+					_confirmRateThreshold[Index] = value;
+				}
+			}
+			public System.Single escapeRateAdd
+			{
+				get
+				{
+					return _escapeRateAdd[Index];
+				}
+				set
+				{
+					_escapeRateAdd[Index] = value;
+				}
+			}
+			public System.Single confirmRateAdd
+			{
+				get
+				{
+					return _confirmRateAdd[Index];
+				}
+				set
+				{
+					_confirmRateAdd[Index] = value;
+				}
+			}
 			private static BansheeGz.BGDatabase.BGFieldEntityName _ufle12jhs77_name;
 			public static BansheeGz.BGDatabase.BGFieldEntityName _name
 			{
@@ -892,6 +936,42 @@ using BansheeGz.BGDatabase;
 				{
 					if(_ufle12jhs77_maxConfirmRate==null || _ufle12jhs77_maxConfirmRate.IsDeleted) _ufle12jhs77_maxConfirmRate=(BansheeGz.BGDatabase.BGFieldFloat) MetaDefault.GetField(new BGId(5486123904841492764,15476280909132720038));
 					return _ufle12jhs77_maxConfirmRate;
+				}
+			}
+			private static BansheeGz.BGDatabase.BGFieldFloat _ufle12jhs77_escapeRateThreshold;
+			public static BansheeGz.BGDatabase.BGFieldFloat _escapeRateThreshold
+			{
+				get
+				{
+					if(_ufle12jhs77_escapeRateThreshold==null || _ufle12jhs77_escapeRateThreshold.IsDeleted) _ufle12jhs77_escapeRateThreshold=(BansheeGz.BGDatabase.BGFieldFloat) MetaDefault.GetField(new BGId(4848151724288434185,3298722537460406417));
+					return _ufle12jhs77_escapeRateThreshold;
+				}
+			}
+			private static BansheeGz.BGDatabase.BGFieldFloat _ufle12jhs77_confirmRateThreshold;
+			public static BansheeGz.BGDatabase.BGFieldFloat _confirmRateThreshold
+			{
+				get
+				{
+					if(_ufle12jhs77_confirmRateThreshold==null || _ufle12jhs77_confirmRateThreshold.IsDeleted) _ufle12jhs77_confirmRateThreshold=(BansheeGz.BGDatabase.BGFieldFloat) MetaDefault.GetField(new BGId(5447916424935284686,4056336648087069087));
+					return _ufle12jhs77_confirmRateThreshold;
+				}
+			}
+			private static BansheeGz.BGDatabase.BGFieldFloat _ufle12jhs77_escapeRateAdd;
+			public static BansheeGz.BGDatabase.BGFieldFloat _escapeRateAdd
+			{
+				get
+				{
+					if(_ufle12jhs77_escapeRateAdd==null || _ufle12jhs77_escapeRateAdd.IsDeleted) _ufle12jhs77_escapeRateAdd=(BansheeGz.BGDatabase.BGFieldFloat) MetaDefault.GetField(new BGId(4922695776093140914,15565999191056034954));
+					return _ufle12jhs77_escapeRateAdd;
+				}
+			}
+			private static BansheeGz.BGDatabase.BGFieldFloat _ufle12jhs77_confirmRateAdd;
+			public static BansheeGz.BGDatabase.BGFieldFloat _confirmRateAdd
+			{
+				get
+				{
+					if(_ufle12jhs77_confirmRateAdd==null || _ufle12jhs77_confirmRateAdd.IsDeleted) _ufle12jhs77_confirmRateAdd=(BansheeGz.BGDatabase.BGFieldFloat) MetaDefault.GetField(new BGId(5331684224806806543,16572060165200737699));
+					return _ufle12jhs77_confirmRateAdd;
 				}
 			}
 			private static readonly TBL_CHARACTER.Factory _factory0_PFS = new TBL_CHARACTER.Factory();
