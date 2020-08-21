@@ -4,6 +4,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum SkillType
+{
+    Netflix,
+    
+}
+
 public class Skill : MonoBehaviour
 {
     [SerializeField] [Header("스킬 DB 인덱스")]
