@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using MonsterLove;
 using MonsterLove.StateMachine;
-
+using Random = UnityEngine.Random;
 
 
 public enum CharacterState
@@ -171,7 +172,11 @@ public partial class Character : MonoBehaviour
         return true;
     }
 
-    public void Die()
+    public void Refresh()
+    {
+        m_FSM.ChangeState(FSMState.Start, StateTransition.Overwrite);
+    }
+    public void Kill()
     {
         m_FSM.ChangeState(FSMState.Die, StateTransition.Overwrite);
     }
@@ -188,6 +193,8 @@ public partial class Character : MonoBehaviour
 
     private void Start_Enter()
     {
+        m_SpriteRenderer.enabled = true;
+        
         transform.position = room.GetRandomPosition();
         
         m_FSM.ChangeState(FSMState.Idle);
