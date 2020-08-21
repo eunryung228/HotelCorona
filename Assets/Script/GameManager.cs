@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject dayPanel;
     public GameObject newsPanel;
+    public GameObject skillPanel;
     public GameObject backPanel;
     public GameObject passDayPanel;
     public GameObject failDayPanel;
@@ -44,6 +46,12 @@ public class GameManager : MonoBehaviour
     int currentRoom;
     int maxRoom;
 
+    public int nowSkill { get; set; } = -1;
+    int roomNum = -1;
+
+    Button[] skillList;
+
+
 
     private void Start()
     {
@@ -63,6 +71,7 @@ public class GameManager : MonoBehaviour
         backPanel.SetActive(false);
         newsPanel.SetActive(false);
         dayPanel.SetActive(false);
+        skillPanel.SetActive(false);
         passDayPanel.SetActive(false);
         failDayPanel.SetActive(false);
     }
@@ -77,6 +86,10 @@ public class GameManager : MonoBehaviour
     {
         newsPanel.SetActive(true);
         dayPanel.SetActive(true);
+        skillPanel.SetActive(true);
+
+        skillList = skillPanel.GetComponentsInChildren<Button>();
+        Debug.Log(skillList[0]);
     }
 
 
@@ -136,5 +149,30 @@ public class GameManager : MonoBehaviour
     {
         ResetAllData();
         mgrScene.Restart();
+    }
+
+
+    private void ClickTarget()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity);
+
+            if (hit.collider != null)
+            {
+                if (nowSkill != -1)
+                {
+                    roomNum = hit.collider.gameObject.GetComponent<Room>().roomNumber;
+                    skillList[nowSkill].GetComponent<Skill>().Use(roomNum);
+                    roomNum = nowSkill = -1;
+                }
+            }
+        }
+    }
+
+    private void Update()
+    {
+        ClickTarget();
     }
 }

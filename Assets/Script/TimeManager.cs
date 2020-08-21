@@ -36,6 +36,7 @@ public class TimeManager : MonoBehaviour
             timeText.text = min.ToString("D2") + ":" + ((int)sec).ToString("D2");
 
             // temp
+            /*
             if (sec >= 5)
             {
                 time = 0;
@@ -43,6 +44,7 @@ public class TimeManager : MonoBehaviour
                 sec = 0;
                 FindObjectOfType<GameManager>().CheckConfirmNum();
             }
+            */
 
             if (sec >= 60)
             {

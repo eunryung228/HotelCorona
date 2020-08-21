@@ -28,6 +28,11 @@ public class Skill : MonoBehaviour
     {
         m_Data = TBL_SKILL.GetEntity(skillIndex);
     }
+
+    public void ClickSkillButton()
+    {
+        FindObjectOfType<GameManager>().nowSkill = m_SkillIndex;
+    }
     
     // 스킬 사용
     public void Use(int characterIndex)
@@ -43,10 +48,12 @@ public class Skill : MonoBehaviour
         if (character.TryUseSkill(m_Data))
         {
             // 스킬 사용이 잘 되었다는 메시지
+            Debug.Log((SkillType)m_SkillIndex + " 사용");
         }
         else
         {
             // 캐릭터 스킬 쿨다운이 아직 남아있어서 스킬 사용이 실패했다는 메시지
+            Debug.Log((SkillType)m_SkillIndex + " 사용 실패");
         }
     }
 }
