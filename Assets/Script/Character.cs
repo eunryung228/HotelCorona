@@ -39,7 +39,7 @@ public class Character : MonoBehaviour
     // 확진 확률
     public float confirmRate;
     
-    // 탁출 확률
+    // 탈출 확률
     public float escapeRate;
     
     private void Init(int characterIndex)
