@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public enum SkillType
 {
-    McDonald, Netflix, Facebook,
-    MomsTouch, YouTube, Sanitizer
+    맥도날드, 넷플릭스, 페이스북,
+    맘스터치, 유튜브, 손소독제
 }
 
 public class Skill : MonoBehaviour
@@ -27,6 +28,16 @@ public class Skill : MonoBehaviour
     private void DataInit(int skillIndex)
     {
         m_Data = TBL_SKILL.GetEntity(skillIndex);
+    }
+
+
+    public string GetSkillName()
+    {
+        return m_Data.skillType.ToString();
+    }
+    public List<string> GetUpStatList()
+    {
+        return m_Data.upStat;
     }
 
     public void ClickSkillButton()

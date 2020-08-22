@@ -374,6 +374,28 @@ using BansheeGz.BGDatabase;
 					_reaminUseAmount[Index] = value;
 				}
 			}
+			public System.Collections.Generic.List<System.String> upStat
+			{
+				get
+				{
+					return _upStat[Index];
+				}
+				set
+				{
+					_upStat[Index] = value;
+				}
+			}
+			public System.Collections.Generic.List<System.String> downStat
+			{
+				get
+				{
+					return _downStat[Index];
+				}
+				set
+				{
+					_downStat[Index] = value;
+				}
+			}
 			private static BansheeGz.BGDatabase.BGFieldEntityName _ufle12jhs77_name;
 			public static BansheeGz.BGDatabase.BGFieldEntityName _name
 			{
@@ -453,6 +475,24 @@ using BansheeGz.BGDatabase;
 				{
 					if(_ufle12jhs77_reaminUseAmount==null || _ufle12jhs77_reaminUseAmount.IsDeleted) _ufle12jhs77_reaminUseAmount=(BansheeGz.BGDatabase.BGFieldInt) MetaDefault.GetField(new BGId(5117451326227883384,13018578731968835761));
 					return _ufle12jhs77_reaminUseAmount;
+				}
+			}
+			private static BansheeGz.BGDatabase.BGFieldListString _ufle12jhs77_upStat;
+			public static BansheeGz.BGDatabase.BGFieldListString _upStat
+			{
+				get
+				{
+					if(_ufle12jhs77_upStat==null || _ufle12jhs77_upStat.IsDeleted) _ufle12jhs77_upStat=(BansheeGz.BGDatabase.BGFieldListString) MetaDefault.GetField(new BGId(5290444446080347432,8223897741068985262));
+					return _ufle12jhs77_upStat;
+				}
+			}
+			private static BansheeGz.BGDatabase.BGFieldListString _ufle12jhs77_downStat;
+			public static BansheeGz.BGDatabase.BGFieldListString _downStat
+			{
+				get
+				{
+					if(_ufle12jhs77_downStat==null || _ufle12jhs77_downStat.IsDeleted) _ufle12jhs77_downStat=(BansheeGz.BGDatabase.BGFieldListString) MetaDefault.GetField(new BGId(4856654479217810909,9330625315966820287));
+					return _ufle12jhs77_downStat;
 				}
 			}
 			private static readonly TBL_CHARACTER.Factory _factory0_PFS = new TBL_CHARACTER.Factory();
