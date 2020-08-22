@@ -11,6 +11,16 @@ public class TitleManager : MonoBehaviour
         SceneManager.LoadScene("UIScene", LoadSceneMode.Additive);
     }
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    static void CheckData()
+    {
+        if (BalanceData.newQuarantine.Count != BalanceData.maxRoom.Count)
+        {
+            Debug.LogError("[X] 기확자님 확인해주세요.!");
+            Debug.LogError("일일 확진자 수와 일일 최대 방 갯수 리스트 데이터의 갯수가 같지않습니다.");
+        }
+    }
+    
     public void ClickGameStart()
     {
         FindObjectOfType<MySceneManager>().ChangeScene("TempMainScene");

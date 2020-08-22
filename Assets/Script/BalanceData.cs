@@ -8,7 +8,8 @@ public static class BalanceData
     
     // 일일 추가 격리자
     public static List<int> newQuarantine    => m_Data.newQuarantine;     
-    
+    public static List<int> maxRoom          => m_Data.maxRoom;
+
     // 공복 배율 범위
     public static float minFoodMulti         => m_Data.minFoodMulti;      
     public static float maxFoodMulti         => m_Data.maxFoodMulti;
@@ -54,6 +55,4 @@ public static class BalanceData
     public static int failEscapeNum           => m_Data.failEscapeNum;
     //  매니저 관리 날짜가 n이상일 경우 게임이 종료됩니다.
     public static int successDayNum           => m_Data.successDayNum;
-
-    public static int maxRoom                  => m_Data.maxRoom;
 }

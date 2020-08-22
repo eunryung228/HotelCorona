@@ -218,11 +218,12 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
                 AddCharactersDay(); // 격리자 날짜 추가
                 EscapeCheck();      // 탈출 판정
                 CureCheck();        // 완치 판정
-                MakeCharacters();   // 격리자 추가
+                MakeCharacters(BalanceData.newQuarantine[day]);   // 격리자 추가
                 break;
             
             case GameEventType.Half:
                 ConfirmCheck();     // 확진 판정
+                MakeCharacters();   // 격리자 추가
                 break;
         }
         
@@ -271,7 +272,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
         }
         
         confirmNum += count;
-        dailyConfirmNum = confirmNum;
+        dailyConfirmNum = count;
     }
 
     private void CureCheck()  // 완치 판정
@@ -292,26 +293,20 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
         dailyCureNum = count;
     }
 
-    private void MakeCharacters()
+    private void MakeCharacters(int todayCount = 0) // 격리자 추가
     {
-        int makeCount = BalanceData.newQuarantine[day]; // 몇개 생성할지
-        currentRoom = CharacterManager.Instance.LiveCharacters.Count;
-        
-        /***
-          currentRoom ≥ maxRoom && remainQuarStby ≥ 1 일때, 빈 방에 격리자를 추가합니다.격리자가 추가될때, 일부 데이터는 밸런스 데이터에서 값을 참조합니다
-          currentRoom == maxRoom일 경우, 격리자가 추가되면 remainQuarStby에 ++하고 실제 격리자가 추가 되지 않습니다
-         */
+        remainQuarStby += todayCount;
 
-        for (int i = 0; i < makeCount; ++i)
+        int willMakeCount = todayCount + remainQuarStby;
+        
+        for (int i = 0; i < willMakeCount; ++i)
         {
             if (CharacterManager.Instance.TryMakeCharacter())
             {
-                
-            }
-            else
-            {
-                remainQuarStby++;
+                remainQuarStby--;
             }
         }
+        
+        currentRoom = CharacterManager.Instance.LiveCharacters.Count;
     }
 }

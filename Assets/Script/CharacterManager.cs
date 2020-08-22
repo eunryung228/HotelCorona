@@ -67,7 +67,14 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>, GameEventL
     private void MakeCharacterPool()
     {
         // 캐릭터 미리 maxRoom 만큼 생성
-        for (int i = 0; i < BalanceData.maxRoom; ++i)
+        int count = 0;
+        for (int i = 0; i < BalanceData.maxRoom.Count; ++i)
+        {
+            // 방 최대 개수 구하기
+            if (BalanceData.maxRoom[i] > count) count = BalanceData.maxRoom[i];
+        }
+        
+        for (int i = 0; i < count; ++i)
         {
             var character = Instantiate(m_CharacterPrefab, Vector3.zero, Quaternion.identity, m_CharacterParent);
             character.room = rooms[i % 6];
@@ -86,15 +93,17 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>, GameEventL
 
     public bool TryMakeCharacter()
     {
-        foreach (var character in characters)
+        int roomCount = BalanceData.maxRoom[GameManager.instance.day];
+
+        for (int i = 0; i < roomCount; ++i)
         {
-            if (character.CurrentState == CharacterState.Death)
+            if (characters[i].CurrentState == CharacterState.Death)
             {
-                character.Refresh();
+                characters[i].Refresh();
                 return true;
             }
         }
-
+        
         return false;
     }
     
