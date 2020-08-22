@@ -6,6 +6,7 @@ using UnityEngine.UI;
 // Left, Full 나누기
 public class SkillTooltip : MonoBehaviour
 {
+    RectTransform rect;
     Vector2 defaultPos;
 
     public Text textSkillName;
@@ -14,7 +15,8 @@ public class SkillTooltip : MonoBehaviour
 
     private void Awake()
     {
-        defaultPos = GetComponent<RectTransform>().position;
+        rect = GetComponent<RectTransform>();
+        defaultPos = rect.anchoredPosition;
     }
 
     public void SetStatus(int index) // 툴팁 생성 시 호출
@@ -40,7 +42,7 @@ public class SkillTooltip : MonoBehaviour
 
     void SetPosition(int index)
     {
-        Vector2 pos = defaultPos + new Vector2(102.7f * (index - 1), 0);
-        GetComponent<RectTransform>().position = pos;
+        Vector2 pos = defaultPos + new Vector2(85 * (index - 1), 0);
+        GetComponent<RectTransform>().anchoredPosition = pos;
     }
 }
