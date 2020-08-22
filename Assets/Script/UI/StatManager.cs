@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StatManager : MonoBehaviour
+public class StatManager : MonoBehaviour, GameEventListener<GameEvent>
 {
     public int roomNumber; // 방 번호
 
@@ -19,10 +19,23 @@ public class StatManager : MonoBehaviour
     [SerializeField]
     private Stat lone;
 
-
-    private void Start()
+    private void Awake()
     {
-        SetInitialStat();
+        this.AddGameEventListening<GameEvent>();
+    }
+
+    public void OnGameEvent(GameEvent e)
+    {
+        switch (e.Type)
+        {
+            case GameEventType.DailyStart:
+            case GameEventType.PageChange:
+            {
+                SetInitialStat();
+                break;
+            }
+        }
+        
     }
 
     public void SetInitialStat() // 다른 층으로 이동할 때마다 호출
@@ -48,6 +61,8 @@ public class StatManager : MonoBehaviour
 
     private void Update()
     {
+        if (m_character == null) return;
+        
         if (m_character.CurrentState != CharacterState.Death)
         {
             food.SetStat(m_character.currentFood);
