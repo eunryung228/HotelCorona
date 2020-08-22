@@ -124,7 +124,7 @@ public partial class Character : MonoBehaviour
     
     private void Update()
     {
-        if (GameManager.instance.CurrentState != GameState.Play) return;
+        if (GameManager.Instance.CurrentState != GameState.Play) return;
         if (CurrentState == CharacterState.Death) return;
         
         

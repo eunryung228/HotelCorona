@@ -8,6 +8,7 @@ using MyDefines;
 
 public class MySceneManager : MonoBehaviour
 {
+    MySceneManager Instance;
     public Image fadeImage;
 
     private string currScene = "TitleScene";
@@ -21,6 +22,12 @@ public class MySceneManager : MonoBehaviour
     float imgTime = 0f;
 
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+
     private void MakeScene(string scene)
     {
         SceneManager.UnloadSceneAsync(currScene);
@@ -28,6 +35,7 @@ public class MySceneManager : MonoBehaviour
         if (currScene == "TitleScene")
         {
             FindObjectOfType<GameManager>().StartGame();
+            GameManager.Instance.StartDay();
             BGMManager.instance.Play(1);
         }
         else
@@ -66,6 +74,7 @@ public class MySceneManager : MonoBehaviour
         yield return StartCoroutine(ImageFadeOut());
         FindObjectOfType<TimeManager>().ResetTimeText();
         FindObjectOfType<DateManager>().PassDay();
+        GameManager.Instance.StartDay();
         StartCoroutine(ImageFadeIn());
     }
 
@@ -77,8 +86,8 @@ public class MySceneManager : MonoBehaviour
     IEnumerator RestartCoroutine()
     {
         yield return StartCoroutine(ImageFadeOut());
-        FindObjectOfType<GameManager>().ResetAllData();
-        FindObjectOfType<GameManager>().SetOffPanelForRetry();
+        GameManager.Instance.ResetAllData();
+        GameManager.Instance.SetOffPanelForRetry();
         FindObjectOfType<TimeManager>().ResetTimeText();
         FindObjectOfType<DateManager>().ResetDate();
         StartCoroutine(ImageFadeIn());

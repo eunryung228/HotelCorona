@@ -28,8 +28,8 @@ public class StatManager : MonoBehaviour
     public void SetInitialStat() // 다른 층으로 이동할 때마다 호출
     {
         var characters = CharacterManager.Instance.characters;
-        m_character = characters[roomNumber];
-
+        m_character = characters[(GameManager.Instance.currentPage - 1) * 6 + roomNumber];
+        
         if (m_character.CurrentState == CharacterState.Death)
         {
             food.SetEmpty();

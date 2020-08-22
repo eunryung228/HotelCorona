@@ -7,19 +7,16 @@ public class DateManager : MonoBehaviour
 {
     public Text textDate;
 
-    public int date = 1;
-    private int winDate = 21; // temp
-
 
     public void PassDay()
     {
-        date += 1;
-        textDate.text = date.ToString("D2");
+        GameManager.Instance.day += 1;
+        textDate.text = GameManager.Instance.day.ToString("D2");
     }
 
     public void ResetDate()
     {
-        date = 1;
-        textDate.text = date.ToString("D2");
+        GameManager.Instance.day = 0; // 다른 곳에 위치
+        textDate.text = GameManager.Instance.day.ToString("D2");
     }
 }

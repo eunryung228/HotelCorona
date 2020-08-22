@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
-    private GameManager mgrGame;
-
     private Text timeText;
     private float time = 0;
 
@@ -18,7 +16,6 @@ public class TimeManager : MonoBehaviour
 
     private void Start()
     {
-        mgrGame = FindObjectOfType<GameManager>();
         timeText = this.GetComponent<Text>();
     }
 
@@ -29,7 +26,7 @@ public class TimeManager : MonoBehaviour
 
     void Update()
     {
-        if (!mgrGame.backPanel.activeSelf && !FindObjectOfType<MySceneManager>().fadeImage.gameObject.activeSelf)
+        if (!GameManager.Instance.backPanel.activeSelf && !FindObjectOfType<MySceneManager>().fadeImage.gameObject.activeSelf)
         {
             time += Time.deltaTime;
             sec = Mathf.Ceil(time);

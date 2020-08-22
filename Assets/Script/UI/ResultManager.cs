@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class ResultManager : MonoBehaviour
 {
-    private GameManager mgrGame;
-
     [SerializeField]
     private bool isPass;
 
@@ -17,8 +15,6 @@ public class ResultManager : MonoBehaviour
 
     private void Awake()
     {
-        mgrGame = FindObjectOfType<GameManager>();
-
         Text[] text = GetComponentsInChildren<Text>();
         textConfirm = text[0];
         textCure = text[1];
@@ -30,15 +26,15 @@ public class ResultManager : MonoBehaviour
     {
         if (isPass)
         {
-            textConfirm.text = mgrGame.dailyConfirmNum + "명";
-            textCure.text = mgrGame.dailyCureNum + "명";
-            textEscape.text = mgrGame.dailyEscapeNum + "명";
+            textConfirm.text = GameManager.Instance.dailyConfirmNum + "명";
+            textCure.text = GameManager.Instance.dailyCureNum + "명";
+            textEscape.text = GameManager.Instance.dailyEscapeNum + "명";
         }
         else
         {
-            textConfirm.text = mgrGame.confirmNum + "명";
-            textCure.text = mgrGame.cureNum + "명";
-            textEscape.text = mgrGame.escapeNum + "명";
+            textConfirm.text = GameManager.Instance.confirmNum + "명";
+            textCure.text = GameManager.Instance.cureNum + "명";
+            textEscape.text = GameManager.Instance.escapeNum + "명";
         }
     }
 }

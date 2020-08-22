@@ -40,7 +40,7 @@ public class Skill : MonoBehaviour
         Character character = CharacterManager.Instance.GetCharacterByRoomNumber(roomNumber);
         if (!character)
         {
-            Debug.LogError($"[X] CharacterManager.Instance.GetCharacterByRoomNumber{roomNumber} (currentPage ={GameManager.instance.currentPage}) is Null Reference");
+            Debug.LogError($"[X] CharacterManager.Instance.GetCharacterByRoomNumber{roomNumber} (currentPage ={GameManager.Instance.currentPage}) is Null Reference");
             return;
         }
 

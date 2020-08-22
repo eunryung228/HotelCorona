@@ -25,7 +25,6 @@ public class Stat : MonoBehaviour
 
     public void SetEmpty()
     {
-        Debug.Log(statImage);
         statImage.fillAmount = 0;
     }
 

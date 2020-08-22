@@ -12,22 +12,16 @@ public enum GameState
 
 public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
 {
-    static public GameManager instance;
+    static public GameManager Instance;
     private MySceneManager mgrScene;
 
     public GameState CurrentState = GameState.Ready;
 
     private void Awake()
     {
-        if (instance != null)
-            Destroy(gameObject);
-        else
-        {
-            DontDestroyOnLoad(gameObject);
-            instance = this;
-            this.AddGameEventListening<GameEvent>();
-        }
+        Instance = this;
     }
+
 
     public GameObject dayPanel;
     public GameObject newsPanel;
@@ -98,6 +92,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
     }
 
 
+    // StartGame이랑 StartDay랑 협의 보기 *^^*
     public void StartGame()
     {
         newsPanel.SetActive(true);
@@ -108,14 +103,11 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
         skillList = skillPanel.GetComponentsInChildren<Button>();
     }
 
-
-    private void UpdateData()
+    public void StartDay()
     {
-        confirmNum += dailyConfirmNum;
-        cureNum += dailyCureNum;
-        escapeNum += dailyEscapeNum;
-        ResetTodayData();
+        GameEvent.Trigger(GameEventType.DailyStart);
     }
+
 
     private void ResetTodayData()
     {
@@ -134,7 +126,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
 
     public void CheckConfirmNum()
     {
-        UpdateData();
+        ResetTodayData();
         backPanel.SetActive(true);
 
         if (escapeNum >= BalanceData.failEscapeNum)
@@ -142,7 +134,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
             failDayPanel.SetActive(true);
             failDayPanel.transform.GetChild(0).GetComponent<ResultManager>().SetResult();
         }
-        else if (FindObjectOfType<DateManager>().date >= BalanceData.successDayNum) // 게임 엔딩 판정
+        else if (day >= BalanceData.successDayNum) // 게임 엔딩 판정
         {
             endingPanel.SetActive(true);
             endingPanel.transform.GetChild(0).GetComponent<ResultManager>().SetResult();
