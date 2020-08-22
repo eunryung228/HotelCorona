@@ -31,7 +31,7 @@ public class Skill : MonoBehaviour
 
     public void ClickSkillButton()
     {
-        FindObjectOfType<GameManager>().nowSkill = m_SkillIndex;
+        GameManager.Instance.nowSkill = m_SkillIndex;
     }
     
     // 스킬 사용
@@ -47,15 +47,15 @@ public class Skill : MonoBehaviour
         if (character.CurrentState == CharacterState.Death)
         {
             // 캐릭터가 없는 상태
-            Debug.Log((SkillType)m_SkillIndex + " 사용 실패");
+            Debug.Log(m_Data.skillType + " 사용 실패");
             return;
         }
 
         if (character.TryUseSkill(m_Data))
         {
             // 스킬 사용이 잘 되었다는 메시지
-            Debug.Log((SkillType)m_SkillIndex + " 사용"); // temp
-            AudioManager.Instance.Play(((SkillType)m_SkillIndex).ToString());
+            Debug.Log(m_Data.skillType + " 사용"); // temp
+            AudioManager.Instance.Play(m_Data.skillType.ToString());
         }
         else
         {
