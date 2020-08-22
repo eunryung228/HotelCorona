@@ -56,6 +56,7 @@ public partial class Character : MonoBehaviour
     {
         Daughter,
         Grandma,
+        Grandmama,
         Grandpa,
         Mama,
         Papa,
