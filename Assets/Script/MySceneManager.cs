@@ -30,7 +30,6 @@ public class MySceneManager : MonoBehaviour
 
     private void MakeScene(string scene)
     {
-        SceneManager.UnloadSceneAsync(currScene);
         string prevScene = currScene;
 
         currScene = scene;
@@ -46,6 +45,8 @@ public class MySceneManager : MonoBehaviour
         {
             yield return null;
         }
+        
+        SceneManager.UnloadSceneAsync(prevScene);
 
         if (prevScene == "TitleScene")
         {
