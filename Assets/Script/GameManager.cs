@@ -224,7 +224,8 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
 
         foreach (var character in characters)
         {
-            character.remainConfirmDate += 1;
+            character.remainConfirmDate -= 1; //격리자 남은 판정일 감소
+            character.day += 1; //격리자 생활일 카운트 증가
         }
     }
     
