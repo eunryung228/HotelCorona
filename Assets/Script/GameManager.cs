@@ -208,6 +208,10 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
                 ConfirmCheck();     // 확진 판정
                 MakeCharacters();   // 격리자 추가
                 break;
+            
+            case GameEventType.DailyEnd:
+                CurrentState = GameState.End;
+                break;
         }
         
     }
