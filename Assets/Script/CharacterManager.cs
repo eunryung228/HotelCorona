@@ -16,6 +16,7 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>, GameEventL
     public List<Character> LiveCharacters => characters.FindAll(character => character.CurrentState == CharacterState.Live);
     public List<Character> DeadCharacters => characters.FindAll(character => character.CurrentState == CharacterState.Death);
 
+    
     /************************************************************
      *        0번방         1번방        2번방
      *        
@@ -41,11 +42,11 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>, GameEventL
     {
         switch (e.Type)
         {
-            case GameEventType.PageChange: OnPageChange(e.Value); return;
+            case GameEventType.PageChange: OnPageChange(); return;
         }
     }
 
-    private void OnPageChange(int page)
+    private void OnPageChange()
     {
         // 1페이지 : 캐릭터  0 ~ 5번 노출
         // 2페이지 : 캐릭터  6 ~ 11번 노출
@@ -53,7 +54,7 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>, GameEventL
         // 설명: 1페이지일때는 0 ~ 5번 캐릭터중 살아잇는 애만 노출, 나머지는 숨김
         foreach (var character in characters) character.Hide();
 
-        int startIndex = (page - 1) * 6;      
+        int startIndex = (GameManager.instance.currentPage - 1) * 6;      
         int endIndex = startIndex + 6;         
 
         for (int i = startIndex; i < endIndex; ++i)
@@ -71,6 +72,15 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>, GameEventL
             character.room = rooms[i % 6];
             characters.Add(character);
         }
+    }
+
+    public Character GetCharacterByRoomNumber(int roomNumber)
+    {
+        // 2페이지일때 0번 룸 -> 6번 캐릭터 반환
+        // 3페이지일때 1번 룸 -> 13번 캐릭터 반환
+        int characterIndex = (GameManager.instance.currentPage - 1) * 6 + roomNumber;
+
+        return characters[characterIndex];
     }
 
     public void MakeCharacter(int characterIndex)
