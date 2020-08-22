@@ -66,8 +66,8 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>, GameEventL
     
     private void MakeCharacterPool()
     {
-        // 캐릭터 미리 24개 생성
-        for (int i = 0; i < 24; ++i)
+        // 캐릭터 미리 maxRoom 만큼 생성
+        for (int i = 0; i < BalanceData.maxRoom; ++i)
         {
             var character = Instantiate(m_CharacterPrefab, Vector3.zero, Quaternion.identity, m_CharacterParent);
             character.room = rooms[i % 6];
