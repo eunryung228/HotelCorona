@@ -50,7 +50,6 @@ public class Skill : MonoBehaviour
             // 스킬 사용이 잘 되었다는 메시지
             Debug.Log((SkillType)m_SkillIndex + " 사용"); // temp
             AudioManager.Instance.Play(((SkillType)m_SkillIndex).ToString());
-            Debug.Log(((SkillType)m_SkillIndex).ToString());
         }
         else
         {

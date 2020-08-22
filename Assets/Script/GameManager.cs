@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject dayPanel;
     public GameObject newsPanel;
+    public GameObject floorPanel;
     public GameObject skillPanel;
     public GameObject backPanel;
     public GameObject passDayPanel;
@@ -71,6 +72,7 @@ public class GameManager : MonoBehaviour
         backPanel.SetActive(false);
         newsPanel.SetActive(false);
         dayPanel.SetActive(false);
+        floorPanel.SetActive(false);
         skillPanel.SetActive(false);
         passDayPanel.SetActive(false);
         failDayPanel.SetActive(false);
@@ -87,6 +89,7 @@ public class GameManager : MonoBehaviour
         newsPanel.SetActive(true);
         dayPanel.SetActive(true);
         skillPanel.SetActive(true);
+        floorPanel.SetActive(true);
 
         skillList = skillPanel.GetComponentsInChildren<Button>();
     }
