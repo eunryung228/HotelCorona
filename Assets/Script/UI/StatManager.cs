@@ -5,46 +5,55 @@ using UnityEngine.UI;
 
 public class StatManager : MonoBehaviour
 {
+    public int roomNumber; // 방 번호
+
     [SerializeField]
-    GameObject foodPrefab = null;
+    Character m_character; // 담당 캐릭터
 
-    GameObject[] characters;
-    List<Transform> roomList = new List<Transform>();
-    List<GameObject> foodBarList = new List<GameObject>();
-
-    Camera camera = null;
+    [SerializeField]
+    private Stat food;
+    [SerializeField]
+    private Stat health;
+    [SerializeField]
+    private Stat mental;
+    [SerializeField]
+    private Stat lone;
 
 
     private void Start()
     {
-        camera = Camera.main;
-
-        characters = GameObject.FindGameObjectsWithTag("Player");
-
-        GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
-        for (int i = 0; i < rooms.Length; i++)
-        {
-            roomList.Add(rooms[i].transform);
-            GameObject foodBar = Instantiate(foodPrefab, roomList[i].transform.position, Quaternion.identity, transform);
-            foodBarList.Add(foodBar);
-        }
-        SetPosition();
+        SetInitialStat();
     }
 
-    void SetPosition()
+    public void SetInitialStat() // 다른 층으로 이동할 때마다 호출
     {
-        for (int i = 0; i < foodBarList.Count; i++)
+        var characters = CharacterManager.Instance.characters;
+        m_character = characters[roomNumber];
+
+        if (m_character.CurrentState == CharacterState.Death)
         {
-            foodBarList[i].transform.position = camera.WorldToScreenPoint(roomList[i].position + new Vector3(0, 10f, 0));
-            foodBarList[i].transform.GetChild(0).GetComponent<Stat>().character = characters[i].GetComponent<Character>();
-            foodBarList[i].transform.GetChild(0).GetComponent<Stat>().SetInitialValue();
+            food.SetEmpty();
+            health.SetEmpty();
+            mental.SetEmpty();
+            lone.SetEmpty();
+        }
+        else
+        {
+            food.SetInitialValue(m_character.currentFood, CharacterData.maxFood);
+            health.SetInitialValue(m_character.currentHealth, CharacterData.maxHealth);
+            mental.SetInitialValue(m_character.currentMental, CharacterData.maxMental);
+            lone.SetInitialValue(m_character.currentLone, CharacterData.maxLone);
         }
     }
 
-
-    // 캐릭터에서 스탯을 가져와 이미지 초기화. 모두 차있는 상태
-    // 새로운 격리자가 들어올 때마다 호출
-    public void SetInitialStat()
+    private void Update()
     {
+        if (m_character.CurrentState != CharacterState.Death)
+        {
+            food.SetStat(m_character.currentFood);
+            health.SetStat(m_character.currentHealth);
+            mental.SetStat(m_character.currentMental);
+            lone.SetStat(m_character.currentLone);
+        }
     }
 }

@@ -7,8 +7,6 @@ using MyDefines;
 public class Stat : MonoBehaviour
 {
     Image statImage;
-    public StatType stat;
-    public Character character;
 
     public float maxValue = 0;
     public float currValue = 0;
@@ -19,22 +17,21 @@ public class Stat : MonoBehaviour
         statImage = GetComponent<Image>();
     }
 
-
-    public void SetInitialValue()
+    public void SetInitialValue(float cv, float mv)
     {
-        maxValue = CharacterData.maxFood;
-        //maxValue = currValue = character.currentFood;
+        currValue = cv;
+        maxValue = mv;
     }
 
-    void SetStat()
+    public void SetEmpty()
     {
-        Debug.Log(currValue);
-        currValue = character.currentFood;
-        statImage.fillAmount = currValue/maxValue;
+        Debug.Log(statImage);
+        statImage.fillAmount = 0;
     }
 
-    private void Update()
+    public void SetStat(float cv)
     {
-        SetStat();
+        currValue = cv;
+        statImage.fillAmount = currValue / maxValue;
     }
 }
