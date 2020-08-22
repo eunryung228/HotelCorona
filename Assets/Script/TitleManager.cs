@@ -22,10 +22,25 @@ public class TitleManager : MonoBehaviour
             Debug.LogError($"일일 최대 방 갯수 데이터: {BalanceData.maxRoom.Count}개");
         }
     }
-    
+
+    public GameObject backPanel;
+    public GameObject tutorialPanel;
+
     public void ClickGameStart()
     {
-        FindObjectOfType<MySceneManager>().ChangeScene("TempMainScene");
+        MySceneManager.Instance.ChangeScene("TempMainScene");
+    }
+
+    public void ClickTutorialBtn()
+    {
+        backPanel.SetActive(true);
+        tutorialPanel.SetActive(true);
+    }
+
+    public void ClickCloseBtn()
+    {
+        backPanel.SetActive(false);
+        tutorialPanel.SetActive(false);
     }
 
     public void ClickGameExit()
