@@ -101,15 +101,15 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
     private void ResetTodayData()
     {
         dailyCureNum = 0;
-        escapeNum = 0;
+        dailyConfirmNum = 0;
         dailyEscapeNum = 0;
     }
 
     public void ResetAllData()
     {
-        confirmNum = 0;
-        dailyConfirmNum = 0;
         cureNum = 0;
+        confirmNum = 0;
+        escapeNum = 0;
         ResetTodayData();
     }
 
@@ -117,7 +117,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
     {
         GameEvent.Trigger(GameEventType.DailyEnd);
         
-        ResetTodayData();
+        
         backPanel.SetActive(true);
 
         if (escapeNum >= BalanceData.failEscapeNum)
@@ -135,6 +135,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
             passDayPanel.SetActive(true);
             passDayPanel.transform.GetChild(0).GetComponent<ResultManager>().SetResult();
         }
+        ResetTodayData();
     }
 
     public void ClickPassDayBtn()
@@ -239,7 +240,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
             if (character.escapeRate >= 100)
             {
                 Debug.Log($"[LOG] { CharacterManager.Instance.characters.IndexOf(character)}번 캐릭터가 탈출했습니다.");
-               
+                
                 character.Kill();
                 count++;
             }
@@ -259,8 +260,10 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
             if (character.remainConfirmDate == 0 && character.confirmRate >= Random.Range(0.0f,100.0f))
             {
                 Debug.Log($"[LOG] { CharacterManager.Instance.characters.IndexOf(character)}번 캐릭터가 확진 판정을 받았습니다.");
-
+                
+                
                 character.Kill();
+                
                 count++;
             }
         }
@@ -285,6 +288,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
             {
                 Debug.Log($"[LOG] { CharacterManager.Instance.characters.IndexOf(character)}번 캐릭터가 완치됐습니다.");
 
+ 
                 character.Kill();
                 count++;
             }
