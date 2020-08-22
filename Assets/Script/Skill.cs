@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public enum SkillType
 {
-    Netflix,
-    
+    McDonald, Netflix, Facebook,
+    MomsTouch, YouTube, Sanitizer
 }
 
 public class Skill : MonoBehaviour

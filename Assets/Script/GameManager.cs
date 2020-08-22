@@ -142,7 +142,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
             failDayPanel.SetActive(true);
             failDayPanel.transform.GetChild(0).GetComponent<ResultManager>().SetResult();
         }
-        else if (FindObjectOfType<DateManager>().date >= totalDay) // 게임 엔딩 판정
+        else if (FindObjectOfType<DateManager>().date >= BalanceData.successDayNum) // 게임 엔딩 판정
         {
             endingPanel.SetActive(true);
             endingPanel.transform.GetChild(0).GetComponent<ResultManager>().SetResult();
