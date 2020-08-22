@@ -94,7 +94,6 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
 
     public void StartDay()
     {
-        day += 1;
         GameEvent.Trigger(GameEventType.DailyStart);
     }
 
@@ -116,6 +115,8 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
 
     public void CheckGameState()
     {
+        GameEvent.Trigger(GameEventType.DailyEnd);
+        
         ResetTodayData();
         backPanel.SetActive(true);
 
@@ -202,6 +203,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
                 EscapeCheck();      // 탈출 판정
                 CureCheck();        // 완치 판정
                 MakeCharacters(BalanceData.newQuarantine[day]);   // 격리자 추가
+                day++;
                 break;
             
             case GameEventType.Half:
@@ -235,6 +237,8 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
         {
             if (character.escapeRate >= 100)
             {
+                Debug.Log($"[LOG] { CharacterManager.Instance.characters.IndexOf(character)}번 캐릭터가 탈출했습니다.");
+               
                 character.Kill();
                 count++;
             }
@@ -253,6 +257,8 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
         {
             if (character.remainConfirmDate <= 0)
             {
+                Debug.Log($"[LOG] { CharacterManager.Instance.characters.IndexOf(character)}번 캐릭터가 확진 판정을 받았습니다.");
+
                 character.Kill();
                 count++;
             }
@@ -271,6 +277,8 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
         {
             if (character.day >= BalanceData.cure)
             {
+                Debug.Log($"[LOG] { CharacterManager.Instance.characters.IndexOf(character)}번 캐릭터가 완치됐습니다.");
+
                 character.Kill();
                 count++;
             }
@@ -284,8 +292,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
     {
         remainQuarStby += todayCount;
 
-        int willMakeCount = todayCount + remainQuarStby;
-        
+        int willMakeCount = remainQuarStby;
         for (int i = 0; i < willMakeCount; ++i)
         {
             if (CharacterManager.Instance.TryMakeCharacter())

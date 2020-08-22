@@ -100,6 +100,15 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>, GameEventL
             if (characters[i].CurrentState == CharacterState.Death)
             {
                 characters[i].Refresh();
+                
+                Debug.Log($"[LOG] {i}번 캐릭터가 생성되었습니다.");
+                
+                int startIndex = (GameManager.Instance.currentPage - 1) * 6;      
+                int endIndex = startIndex + 6;      
+                if (i < startIndex  || endIndex <= i)
+                {
+                    characters[i].Hide();
+                }
                 return true;
             }
         }
