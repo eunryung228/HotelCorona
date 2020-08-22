@@ -32,10 +32,11 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>, GameEventL
         this.AddGameEventListening<GameEvent>();
         
         
-        // 0, 3, 4 번방 캐릭터 나타내기
-        MakeCharacter(0);
-        MakeCharacter(3);
-        MakeCharacter(4);
+        // 캐틱터 앞에서부터 3개 생성
+        
+        //TryMakeCharacter();
+        //TryMakeCharacter();
+        //TryMakeCharacter();
     }
 
     public void OnGameEvent(GameEvent e)
@@ -83,11 +84,18 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>, GameEventL
         return characters[characterIndex];
     }
 
-    public void MakeCharacter(int characterIndex)
+    public bool TryMakeCharacter()
     {
-        var character = characters[characterIndex];
-        if (character.CurrentState == CharacterState.Live) return;
-        
-        character.Refresh();
+        foreach (var character in characters)
+        {
+            if (character.CurrentState == CharacterState.Death)
+            {
+                character.Refresh();
+                return true;
+            }
+        }
+
+        return false;
     }
+    
 }

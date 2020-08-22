@@ -177,4 +177,54 @@ public class GameManager : MonoBehaviour
     {
         ClickTarget();
     }
+
+    // 추가격리자 생성 예시
+    public void Test()
+    {
+        // 만약 오늘이 1일차면  4명 생성
+        int day = 0;
+        int count = BalanceData.newQuarantine[day]; // 몇개 생성할지
+
+        for (int i = 0; i < count; ++i)
+        {
+            if (CharacterManager.Instance.TryMakeCharacter())
+            {
+                // 생성되면 True 반환
+                // 살아있는 캐릭터 갯수? 격리자 갯수? += 1;
+            }
+            else
+            {
+                // 24개 꽉차면 false 반환
+            }
+        }
+        
+    }
+    
+    // 탈출 판정 예시
+    public void Test2()
+    {
+        // escapeRate가 100이 되면 캐릭터는 즉시 탈출 합니다 (탈출한 캐릭터는 돌아오지 않습니다. escapeNum++
+        var characters = CharacterManager.Instance.LiveCharacters;
+        int count = characters.Count;
+
+        foreach (var character in characters)
+        {
+            character.Kill(); // 캐릭터가 탈출/확진/완치등에 모두 이거 호출
+            // 살아있는  캐릭터 갯수 -= 1;
+        }
+
+        //탈출 개수 += ...
+        //escapeNum += count;
+    }
+    
+    // 하루 지나면 살아있는 캐릭터들 day 올라가는 예시
+    public void Test3()
+    {
+        var characters = CharacterManager.Instance.LiveCharacters;
+
+        foreach (var character in characters)
+        {
+            character.day++;
+        }
+    }
 }
