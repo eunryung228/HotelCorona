@@ -47,7 +47,7 @@ public class TimeManager : MonoBehaviour
                 if (hour == 9) // 원래 값 15
                     GameEvent.Trigger(GameEventType.Half);
                 else if(hour == 18)
-                    timeImage.sprite = Resources.Load("UI/Timer/night") as Sprite;
+                    timeImage.sprite = Resources.Load<Sprite>("UI/Timer/night") as Sprite;
                 else if (hour == 10) // 원래 값 22
                     GameManager.Instance.CheckGameState();
                 //else if (hour == 22)
