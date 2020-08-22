@@ -172,6 +172,8 @@ public partial class Character : MonoBehaviour
 
     public void Show()
     {
+        if (CurrentState == CharacterState.Death) return;
+        
         m_SpriteRenderer.enabled = true;
     }
 
