@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterManager : SingletonBehaviour<CharacterManager>
+public class CharacterManager : SingletonBehaviour<CharacterManager>, GameEventListener<GameEvent>
 {
     [SerializeField] [Header("캐릭터 생성 위치")] private Transform m_CharacterParent;
     [SerializeField] [Header("캐릭터 프리팹")]    private Character  m_CharacterPrefab;
@@ -18,15 +18,17 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
 
     /************************************************************
      *        0번방         1번방        2번방
-     *
+     *        
      *        3번방         4번방        5번방
      ************************************************************/
 
     protected override void Awake()
     {
         base.Awake();
-
+        
         MakeCharacterPool();
+
+        this.AddGameEventListening<GameEvent>();
         
         
         // 0, 3, 4 번방 캐릭터 나타내기
@@ -35,6 +37,31 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
         MakeCharacter(4);
     }
 
+    public void OnGameEvent(GameEvent e)
+    {
+        switch (e.Type)
+        {
+            case GameEventType.PageChange: OnPageChange(e.Value); return;
+        }
+    }
+
+    private void OnPageChange(int page)
+    {
+        // 1페이지 : 캐릭터  0 ~ 5번 노출
+        // 2페이지 : 캐릭터  6 ~ 11번 노출
+        // 3페이지:  캐릭터 12 ~ 17번 노출;
+        // 설명: 1페이지일때는 0 ~ 5번 캐릭터중 살아잇는 애만 노출, 나머지는 숨김
+        foreach (var character in characters) character.Hide();
+
+        int startIndex = (page - 1) * 6;      
+        int endIndex = startIndex + 6;         
+
+        for (int i = startIndex; i < endIndex; ++i)
+        {
+            characters[i].Show();
+        }
+    }
+    
     private void MakeCharacterPool()
     {
         // 캐릭터 미리 24개 생성
