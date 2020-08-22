@@ -26,9 +26,15 @@ public class MySceneManager : MonoBehaviour
         SceneManager.UnloadSceneAsync(currScene);
 
         if (currScene == "TitleScene")
+        {
             FindObjectOfType<GameManager>().StartGame();
+            BGMManager.instance.Play(1);
+        }
         else
+        {
             FindObjectOfType<GameManager>().SetOffUIPanels();
+            BGMManager.instance.Play(0);
+        }
         currScene = scene;
         SceneManager.LoadScene(scene, LoadSceneMode.Additive);
         sceneState = SceneState.NORMAL;

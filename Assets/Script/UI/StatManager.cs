@@ -36,7 +36,7 @@ public class StatManager : MonoBehaviour
         for (int i = 0; i < foodBarList.Count; i++)
         {
             foodBarList[i].transform.position = camera.WorldToScreenPoint(roomList[i].position + new Vector3(0, 10f, 0));
-            foodBarList[i].transform.GetChild(0).GetComponent<Stat>().character = characters[0].GetComponent<Character>();
+            foodBarList[i].transform.GetChild(0).GetComponent<Stat>().character = characters[i].GetComponent<Character>();
             foodBarList[i].transform.GetChild(0).GetComponent<Stat>().SetInitialValue();
         }
     }

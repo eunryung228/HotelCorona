@@ -89,7 +89,6 @@ public class GameManager : MonoBehaviour
         skillPanel.SetActive(true);
 
         skillList = skillPanel.GetComponentsInChildren<Button>();
-        Debug.Log(skillList[0]);
     }
 
 
@@ -159,14 +158,21 @@ public class GameManager : MonoBehaviour
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity);
 
-            if (hit.collider != null)
+            if (!backPanel.activeSelf && !mgrScene.fadeImage.gameObject.activeSelf)
             {
-                if (nowSkill != -1)
+                if (hit.collider != null)
                 {
-                    roomNum = hit.collider.gameObject.GetComponent<Room>().roomNumber;
-                    skillList[nowSkill].GetComponent<Skill>().Use(roomNum);
-                    roomNum = nowSkill = -1;
+                    if (nowSkill != -1)
+                    {
+                        roomNum = hit.collider.gameObject.GetComponent<Room>().roomNumber;
+                        skillList[nowSkill].GetComponent<Skill>().Use(roomNum);
+                        roomNum = nowSkill = -1;
+                    }
                 }
+            }
+            else
+            {
+                roomNum = nowSkill = -1;
             }
         }
     }
