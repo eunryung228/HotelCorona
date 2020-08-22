@@ -53,6 +53,8 @@ public class GameManager : MonoBehaviour
     Button[] skillList;
 
 
+    // 현재 페이지 (default = 1);
+    public int currentPage = 1;
 
     private void Start()
     {

@@ -35,15 +35,21 @@ public class Skill : MonoBehaviour
     }
     
     // 스킬 사용
-    public void Use(int characterIndex)
+    public void Use(int roomNumber)
     {
-        Character character = CharacterManager.Instance.characters[characterIndex];
+        Character character = CharacterManager.Instance.GetCharacterByRoomNumber(roomNumber);
         if (!character)
         {
-            Debug.LogError($"[X] CharacterManager.Instance.characters[{characterIndex}] is Null Reference");
+            Debug.LogError($"[X] CharacterManager.Instance.GetCharacterByRoomNumber{roomNumber} (currentPage ={GameManager.instance.currentPage}) is Null Reference");
             return;
         }
-        
+
+        if (character.CurrentState == CharacterState.Death)
+        {
+            // 캐릭터가 없는 상태
+            Debug.Log((SkillType)m_SkillIndex + " 사용 실패");
+            return;
+        }
 
         if (character.TryUseSkill(m_Data))
         {

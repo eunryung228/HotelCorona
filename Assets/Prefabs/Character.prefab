@@ -71,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: -8244042962101087946, guid: 677dabe47d9b16147ad5c60cb8be5c72,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a367234b9ca9e549b6a72262312508a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  room: {fileID: 0}
   currentFood: 0
   currentHealth: 0
   currentMental: 0
@@ -104,6 +105,7 @@ MonoBehaviour:
   confirmRate: 0
   escapeRate: 0
   day: 0
+  CurrentState: 0
   DestinationPosition: {x: 0, y: 0, z: 0}
 --- !u!95 &1411503505209246082
 Animator:

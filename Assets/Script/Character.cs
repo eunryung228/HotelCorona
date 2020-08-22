@@ -50,7 +50,7 @@ public partial class Character : MonoBehaviour
     public int day;
 
     [Header("캐릭터 상태")]
-    public CharacterState CurrentState = CharacterState.Live;
+    public CharacterState CurrentState = CharacterState.Death;
     
     private enum CharacterType
     {
@@ -89,8 +89,10 @@ public partial class Character : MonoBehaviour
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
         
         m_FSM = StateMachine<FSMState>.Initialize(this, FSMState.None);
-        
-        DataInit();
+
+        CurrentState = CharacterState.Death;
+
+        m_SpriteRenderer.enabled = false;
     }
     
     private void DataInit()
@@ -119,16 +121,11 @@ public partial class Character : MonoBehaviour
         
         m_FSM.ChangeState(FSMState.None);
     }
-
-    private void Start()
-    {
-        m_FSM.ChangeState(FSMState.Start);
-    }
-
+    
     private void Update()
     {
         // 하루 시작 <--> 하루 종료 상태 사이일때만 반영하도록 바꿔야함
-        if (m_FSM.State == FSMState.None) return;
+        if (CurrentState == CharacterState.Death) return;
         
         
         float dt = Time.deltaTime;
@@ -148,10 +145,10 @@ public partial class Character : MonoBehaviour
         if (currentMental <= BalanceData.escapeRateThreshold * CharacterData.maxMental) escapeRate = Mathf.Min(100, escapeRate + BalanceData.escapeRateAdd * dt);
         if (currentLone   <= BalanceData.escapeRateThreshold * CharacterData.maxLone  ) escapeRate = Mathf.Min(100, escapeRate + BalanceData.escapeRateAdd * dt);
         
-        if (currentFood   >= BalanceData.confirmRateThreshold * CharacterData.maxFood  ) confirmRate = Mathf.Max(0, confirmRate + BalanceData.confirmRateThreshold * dt);
-        if (currentHealth >= BalanceData.confirmRateThreshold * CharacterData.maxHealth) confirmRate = Mathf.Max(0, confirmRate + BalanceData.confirmRateThreshold * dt);
-        if (currentMental >= BalanceData.confirmRateThreshold * CharacterData.maxMental) confirmRate = Mathf.Max(0, confirmRate + BalanceData.confirmRateThreshold * dt);
-        if (currentLone   >= BalanceData.confirmRateThreshold * CharacterData.maxLone  ) confirmRate = Mathf.Max(0, confirmRate + BalanceData.confirmRateThreshold * dt);
+        if (currentFood   >= BalanceData.confirmRateThreshold * CharacterData.maxFood  ) confirmRate = Mathf.Max(0, confirmRate + BalanceData.confirmRateAdd * dt);
+        if (currentHealth >= BalanceData.confirmRateThreshold * CharacterData.maxHealth) confirmRate = Mathf.Max(0, confirmRate + BalanceData.confirmRateAdd * dt);
+        if (currentMental >= BalanceData.confirmRateThreshold * CharacterData.maxMental) confirmRate = Mathf.Max(0, confirmRate + BalanceData.confirmRateAdd * dt);
+        if (currentLone   >= BalanceData.confirmRateThreshold * CharacterData.maxLone  ) confirmRate = Mathf.Max(0, confirmRate + BalanceData.confirmRateAdd * dt);
     }
     
     
@@ -172,12 +169,29 @@ public partial class Character : MonoBehaviour
         return true;
     }
 
+
+    public void Show()
+    {
+        if (CurrentState == CharacterState.Death) return;
+        
+        m_SpriteRenderer.enabled = true;
+    }
+
+    public void Hide()
+    {
+        m_SpriteRenderer.enabled = false;
+    }
+
     public void Refresh()
     {
+        DataInit();
+        m_SpriteRenderer.enabled = true;
         m_FSM.ChangeState(FSMState.Start, StateTransition.Overwrite);
     }
+    
     public void Kill()
     {
+        m_SpriteRenderer.enabled = false;
         m_FSM.ChangeState(FSMState.Die, StateTransition.Overwrite);
     }
 }
@@ -193,6 +207,8 @@ public partial class Character : MonoBehaviour
 
     private void Start_Enter()
     {
+        CurrentState = CharacterState.Live;
+        
         m_SpriteRenderer.enabled = true;
         
         transform.position = room.GetRandomPosition();
