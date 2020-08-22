@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class NewsManager : MonoBehaviour
 {
@@ -10,9 +12,9 @@ public class NewsManager : MonoBehaviour
 
     public Animation newsAnim;
 
-    int nowNewsNum = 0;
+    private int newsCount = 0;
 
-
+    
     void Start()
     {
         newsText = GetComponent<Text>();
@@ -22,43 +24,61 @@ public class NewsManager : MonoBehaviour
 
     public void NewsOn()
     {
-        newsText.text = "오늘의 뉴스입니다."; // 임시
-        // SetNormalNews();
         StartCoroutine(NewsCoroutine());
     }
-
-
-    private void SetNormalNews()
-    {
-        Debug.Log("normal");
-        // 데이터 랜덤 선택, 그러나 이전의 것은 선택할 수 없도록
-
-        // news number 저장
-
-        // 코루틴 시작
-        StartCoroutine(NewsCoroutine());
-    }
-
-    // 게임매니저에서 호출할 수 있도록 public
-    public void SetGlobalNews()
-    {
-        
-    }
-
-
+    
+    
     IEnumerator NewsCoroutine()
     {
-        newsAnim.Play();
+        var wait20 = new WaitForSeconds(20f);
+        var wait10 = new WaitForSeconds(10f);
 
-        yield return new WaitForSeconds(10f);
-
-        newsAnim.Stop();
-        SetNormalNews();
-        yield return null;
+        while (true)
+        {
+            newsCount++;
+            
+            newsAnim.Play();
+            if (newsCount % 3 == 0)
+            {
+                SetNewsLevelText();
+                yield return wait10;
+                newsAnim.Stop();
+            }
+            else
+            {
+                SetNewsDailyText();
+                yield return wait10;
+                newsAnim.Stop();
+            }
+        }
     }
 
-    private void Update()
+    private void SetNewsDailyText()
     {
-        
+        newsText.text = NewsData.GetRandomNewsText(NewsType.Daily);
     }
+    
+    private void SetNewsLevelText()
+    {
+        string news = String.Empty;
+        
+        if (GameManager.Instance.day < 6)
+        {
+            news = NewsData.GetRandomNewsText(NewsType.Level1);
+        }
+        else
+        {
+            if (GameManager.Instance.escapeNum <= 6)
+            {
+                news = NewsData.GetRandomNewsText(NewsType.Level2A);
+            }
+            else
+            {
+                news = NewsData.GetRandomNewsText(NewsType.Level2B);
+            }
+        }
+
+        newsText.text = news;
+    }
+    
 }
