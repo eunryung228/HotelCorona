@@ -20,6 +20,8 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
     private void Awake()
     {
         Instance = this;
+        
+        this.AddGameEventListening<GameEvent>();
     }
 
 

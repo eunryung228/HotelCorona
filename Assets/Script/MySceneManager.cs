@@ -31,8 +31,23 @@ public class MySceneManager : MonoBehaviour
     private void MakeScene(string scene)
     {
         SceneManager.UnloadSceneAsync(currScene);
+        string prevScene = currScene;
 
-        if (currScene == "TitleScene")
+        currScene = scene;
+        var state = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+        sceneState = SceneState.NORMAL;
+
+        StartCoroutine(MakeScene_Coroutine(state, prevScene));
+    }
+
+    private IEnumerator MakeScene_Coroutine(AsyncOperation state, string prevScene)
+    {
+        while (!state.isDone)
+        {
+            yield return null;
+        }
+
+        if (prevScene == "TitleScene")
         {
             FindObjectOfType<GameManager>().StartGame();
             GameManager.Instance.StartDay();
@@ -43,9 +58,6 @@ public class MySceneManager : MonoBehaviour
             FindObjectOfType<GameManager>().SetOffUIPanels();
             BGMManager.instance.Play(0);
         }
-        currScene = scene;
-        SceneManager.LoadScene(scene, LoadSceneMode.Additive);
-        sceneState = SceneState.NORMAL;
     }
 
     public void ChangeScene(string scene)
