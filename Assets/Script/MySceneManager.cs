@@ -8,8 +8,14 @@ using MyDefines;
 
 public class MySceneManager : MonoBehaviour
 {
-    MySceneManager Instance;
+    static public MySceneManager Instance;
     public Image fadeImage;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
 
     private string currScene = "TitleScene";
     private Color m_color;
@@ -22,10 +28,7 @@ public class MySceneManager : MonoBehaviour
     float imgTime = 0f;
 
 
-    private void Awake()
-    {
-        Instance = this;
-    }
+
 
 
     private void MakeScene(string scene)
@@ -72,7 +75,7 @@ public class MySceneManager : MonoBehaviour
     IEnumerator PassDayCoroutine()
     {
         yield return StartCoroutine(ImageFadeOut());
-        FindObjectOfType<TimeManager>().ResetTimeText();
+        FindObjectOfType<TimeManager>().ResetTime();
         FindObjectOfType<DateManager>().PassDay();
         GameManager.Instance.StartDay();
         StartCoroutine(ImageFadeIn());
@@ -88,7 +91,7 @@ public class MySceneManager : MonoBehaviour
         yield return StartCoroutine(ImageFadeOut());
         GameManager.Instance.ResetAllData();
         GameManager.Instance.SetOffPanelForRetry();
-        FindObjectOfType<TimeManager>().ResetTimeText();
+        FindObjectOfType<TimeManager>().ResetTime();
         FindObjectOfType<DateManager>().ResetDate();
         StartCoroutine(ImageFadeIn());
     }

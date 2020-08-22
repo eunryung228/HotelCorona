@@ -6,22 +6,27 @@ using UnityEngine.UI;
 public class TimeManager : MonoBehaviour
 {
     private Text timeText;
+    public Image timeImage;
+
     private float time = 0;
 
-    private int min = 0;
+    private int hour = 8;
     private float sec = 0;
+    private float checkTime = 8.57f;
 
-    int playTime = 2; // 일단은 정수로
+    // 플레이 타임
+    int playTime = 120;
 
 
     private void Start()
     {
-        timeText = this.GetComponent<Text>();
+        timeText = GetComponent<Text>();
     }
 
-    public void ResetTimeText()
+    public void ResetTime()
     {
-        timeText.text = "00:00";
+        timeText.text = "08:00";
+        timeImage.sprite = Resources.Load<Sprite>("UI/Timer/day") as Sprite;
     }
 
     void Update()
@@ -30,28 +35,18 @@ public class TimeManager : MonoBehaviour
         {
             time += Time.deltaTime;
             sec = Mathf.Ceil(time);
-            timeText.text = min.ToString("D2") + ":" + ((int)sec).ToString("D2");
+            timeText.text = hour.ToString("D2") + ":00";
 
-            // temp
-            /*
-            if (sec >= 5)
+            if (sec >= 8.57)
             {
+                hour += 1;
+                sec = 0;
                 time = 0;
-                min = 0;
-                sec = 0;
-                FindObjectOfType<GameManager>().CheckConfirmNum();
-            }
-            */
 
-            if (sec >= 60)
-            {
-                min += 1;
-                sec = 0;
-
-                if (min == playTime)
-                {
-                    FindObjectOfType<GameManager>().CheckConfirmNum();
-                }
+                if (hour == 18)
+                    timeImage.sprite = Resources.Load("UI/Timer/night") as Sprite;
+                else if (hour == 22)
+                    GameManager.Instance.CheckGameState();
             }
         }
     }

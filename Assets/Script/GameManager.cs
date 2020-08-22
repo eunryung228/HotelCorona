@@ -13,7 +13,6 @@ public enum GameState
 public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
 {
     static public GameManager Instance;
-    private MySceneManager mgrScene;
 
     public GameState CurrentState = GameState.Ready;
 
@@ -59,18 +58,6 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
     // 현재 페이지 (default = 1);
     public int currentPage = 1;
 
-    private void Start()
-    {
-        mgrScene = FindObjectOfType<MySceneManager>();
-    }
-
-
-    // temp
-    public void UpUp()
-    {
-        dailyConfirmNum += 1;
-    }
-    //
 
     public void SetOffUIPanels()
     {
@@ -124,7 +111,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
         ResetTodayData();
     }
 
-    public void CheckConfirmNum()
+    public void CheckGameState()
     {
         ResetTodayData();
         backPanel.SetActive(true);
@@ -150,19 +137,19 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
     {
         backPanel.SetActive(false);
         passDayPanel.SetActive(false);
-        mgrScene.PlayPassDay();
+        MySceneManager.Instance.PlayPassDay();
     }
 
     public void ClickBackToTitleBtn()
     {
         ResetAllData();
-        mgrScene.ChangeScene("TitleScene");
+        MySceneManager.Instance.ChangeScene("TitleScene");
     }
 
     public void ClickRestartGameBtn()
     {
         ResetAllData();
-        mgrScene.Restart();
+        MySceneManager.Instance.Restart();
     }
 
 
@@ -173,7 +160,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity);
 
-            if (!backPanel.activeSelf && !mgrScene.fadeImage.gameObject.activeSelf)
+            if (!backPanel.activeSelf && !MySceneManager.Instance.fadeImage.gameObject.activeSelf)
             {
                 if (hit.collider != null)
                 {
