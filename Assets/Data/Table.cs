@@ -589,17 +589,6 @@ using BansheeGz.BGDatabase;
 					_maxRoom[Index] = value;
 				}
 			}
-			public System.Single minFoodMulti
-			{
-				get
-				{
-					return _minFoodMulti[Index];
-				}
-				set
-				{
-					_minFoodMulti[Index] = value;
-				}
-			}
 			public System.Single maxFoodMulti
 			{
 				get
@@ -842,6 +831,17 @@ using BansheeGz.BGDatabase;
 					_successDayNum[Index] = value;
 				}
 			}
+			public System.Single minFoodMulti
+			{
+				get
+				{
+					return _minFoodMulti[Index];
+				}
+				set
+				{
+					_minFoodMulti[Index] = value;
+				}
+			}
 			private static BansheeGz.BGDatabase.BGFieldEntityName _ufle12jhs77_name;
 			public static BansheeGz.BGDatabase.BGFieldEntityName _name
 			{
@@ -865,17 +865,8 @@ using BansheeGz.BGDatabase;
 			{
 				get
 				{
-					if(_ufle12jhs77_maxRoom==null || _ufle12jhs77_maxRoom.IsDeleted) _ufle12jhs77_maxRoom=(BansheeGz.BGDatabase.BGFieldListInt) MetaDefault.GetField(new BGId(4719152662974116453,736702910536989346));
+					if(_ufle12jhs77_maxRoom==null || _ufle12jhs77_maxRoom.IsDeleted) _ufle12jhs77_maxRoom=(BansheeGz.BGDatabase.BGFieldListInt) MetaDefault.GetField(new BGId(4692425448514316905,1746407605301566870));
 					return _ufle12jhs77_maxRoom;
-				}
-			}
-			private static BansheeGz.BGDatabase.BGFieldFloat _ufle12jhs77_minFoodMulti;
-			public static BansheeGz.BGDatabase.BGFieldFloat _minFoodMulti
-			{
-				get
-				{
-					if(_ufle12jhs77_minFoodMulti==null || _ufle12jhs77_minFoodMulti.IsDeleted) _ufle12jhs77_minFoodMulti=(BansheeGz.BGDatabase.BGFieldFloat) MetaDefault.GetField(new BGId(5572535856152043302,7180064260108545461));
-					return _ufle12jhs77_minFoodMulti;
 				}
 			}
 			private static BansheeGz.BGDatabase.BGFieldFloat _ufle12jhs77_maxFoodMulti;
@@ -1074,6 +1065,15 @@ using BansheeGz.BGDatabase;
 				{
 					if(_ufle12jhs77_successDayNum==null || _ufle12jhs77_successDayNum.IsDeleted) _ufle12jhs77_successDayNum=(BansheeGz.BGDatabase.BGFieldInt) MetaDefault.GetField(new BGId(5132288433086556868,13718120927810523042));
 					return _ufle12jhs77_successDayNum;
+				}
+			}
+			private static BansheeGz.BGDatabase.BGFieldFloat _ufle12jhs77_minFoodMulti;
+			public static BansheeGz.BGDatabase.BGFieldFloat _minFoodMulti
+			{
+				get
+				{
+					if(_ufle12jhs77_minFoodMulti==null || _ufle12jhs77_minFoodMulti.IsDeleted) _ufle12jhs77_minFoodMulti=(BansheeGz.BGDatabase.BGFieldFloat) MetaDefault.GetField(new BGId(5572535856152043302,7180064260108545461));
+					return _ufle12jhs77_minFoodMulti;
 				}
 			}
 			private static readonly TBL_CHARACTER.Factory _factory0_PFS = new TBL_CHARACTER.Factory();

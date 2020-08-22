@@ -18,6 +18,8 @@ public class TitleManager : MonoBehaviour
         {
             Debug.LogError("[X] 기확자님 확인해주세요.!");
             Debug.LogError("일일 확진자 수와 일일 최대 방 갯수 리스트 데이터의 갯수가 같지않습니다.");
+            Debug.LogError($"일일 확진자 수 데이터: {BalanceData.newQuarantine.Count}개");
+            Debug.LogError($"일일 최대 방 갯수 데이터: {BalanceData.maxRoom.Count}개");
         }
     }
     
