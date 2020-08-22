@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
+    public Sprite m_Sprite;
+    public Sprite m_OverSprite;
+    
     [Header("방번호")]
     public int roomNumber;
 
@@ -16,7 +19,6 @@ public class Room : MonoBehaviour
     private void Awake()
     {
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
-        m_SpriteRenderer.flipY = (roomNumber % 6  >= 3);
     }
     
     public Vector3 GetRandomPosition()
@@ -33,5 +35,30 @@ public class Room : MonoBehaviour
            
             return m_UpTransforms[m_PosIndex].position;
         }
+    }
+
+    private void OnMouseOver()
+    {
+        if (GameManager.Instance.nowSkill == -1)
+        {
+            m_SpriteRenderer.sprite = m_Sprite;
+            m_SpriteRenderer.sortingOrder = 1;
+            return;
+        }
+        
+        m_SpriteRenderer.sprite = m_OverSprite;
+        m_SpriteRenderer.sortingOrder = 1000;
+    }
+
+    private void OnMouseExit()
+    {
+        m_SpriteRenderer.sprite = m_Sprite;
+        m_SpriteRenderer.sortingOrder = 1;
+    }
+
+    private void OnMouseDown()
+    {
+        m_SpriteRenderer.sprite = m_Sprite;
+        m_SpriteRenderer.sortingOrder = 1;
     }
 }

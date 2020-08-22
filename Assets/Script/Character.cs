@@ -204,7 +204,7 @@ public partial class Character : MonoBehaviour
     public Vector3 DestinationPosition;
     public Vector3 CurrentPosition => transform.position;
 
-    private float m_MoveSpeed = 1f;
+    private float m_MoveSpeed = 0.1f;
 
     private void Start_Enter()
     {
