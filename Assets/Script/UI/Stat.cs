@@ -30,7 +30,7 @@ public class Stat : MonoBehaviour
     {
         Debug.Log(currValue);
         currValue = character.currentFood;
-        statImage.fillAmount = currValue;
+        statImage.fillAmount = currValue/maxValue;
     }
 
     private void Update()

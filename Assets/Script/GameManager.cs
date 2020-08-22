@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public GameObject backPanel;
     public GameObject passDayPanel;
     public GameObject failDayPanel;
+    public GameObject endingPanel;
 
 
     // 총 게임 데이터
@@ -38,8 +39,9 @@ public class GameManager : MonoBehaviour
     public int dailyCureNum = 0;
     public int dailyEscapeNum = 0;
 
-    // 인카운터 용
+    // 게임 종료 체크
     int totalConfirmNum = 5;
+    int totalDay = 14;
 
     // 대기 중인 격리자 수
     int remainQuarStby;
@@ -78,13 +80,16 @@ public class GameManager : MonoBehaviour
         skillPanel.SetActive(false);
         passDayPanel.SetActive(false);
         failDayPanel.SetActive(false);
+        endingPanel.SetActive(false);
     }
 
-    public void SetOffFailPanel()
+    public void SetOffPanelForRetry()
     {
         backPanel.SetActive(false);
         failDayPanel.SetActive(false);
+        endingPanel.SetActive(false);
     }
+
 
     public void StartGame()
     {
@@ -124,10 +129,15 @@ public class GameManager : MonoBehaviour
     {
         UpdateData();
         backPanel.SetActive(true);
-        if (confirmNum >= totalConfirmNum)
+        if (confirmNum >= totalConfirmNum) // 게임 실패 판정
         {
             failDayPanel.SetActive(true);
             failDayPanel.transform.GetChild(0).GetComponent<ResultManager>().SetResult();
+        }
+        else if (FindObjectOfType<DateManager>().date >= totalDay) // 게임 엔딩 판정
+        {
+            endingPanel.SetActive(true);
+            endingPanel.transform.GetChild(0).GetComponent<ResultManager>().SetResult();
         }
         else
         {

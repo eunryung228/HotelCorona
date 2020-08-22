@@ -78,7 +78,7 @@ public class MySceneManager : MonoBehaviour
     {
         yield return StartCoroutine(ImageFadeOut());
         FindObjectOfType<GameManager>().ResetAllData();
-        FindObjectOfType<GameManager>().SetOffFailPanel();
+        FindObjectOfType<GameManager>().SetOffPanelForRetry();
         FindObjectOfType<TimeManager>().ResetTimeText();
         FindObjectOfType<DateManager>().ResetDate();
         StartCoroutine(ImageFadeIn());

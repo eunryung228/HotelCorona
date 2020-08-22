@@ -7,7 +7,7 @@ public class DateManager : MonoBehaviour
 {
     public Text textDate;
 
-    private int date = 1;
+    public int date = 1;
     private int winDate = 21; // temp
 
 
