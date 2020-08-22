@@ -54,12 +54,13 @@ public class Skill : MonoBehaviour
         if (character.TryUseSkill(m_Data))
         {
             // 스킬 사용이 잘 되었다는 메시지
-            Debug.Log((SkillType)m_SkillIndex + " 사용");
+            Debug.Log((SkillType)m_SkillIndex + " 사용"); // temp
+            AudioManager.Instance.Play(((SkillType)m_SkillIndex).ToString());
         }
         else
         {
             // 캐릭터 스킬 쿨다운이 아직 남아있어서 스킬 사용이 실패했다는 메시지
-            Debug.Log((SkillType)m_SkillIndex + " 사용 실패");
+            Debug.Log((SkillType)m_SkillIndex + " 사용 실패"); // temp
         }
     }
 }

@@ -31,10 +31,12 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
 
     public GameObject dayPanel;
     public GameObject newsPanel;
+    public GameObject floorPanel;
     public GameObject skillPanel;
     public GameObject backPanel;
     public GameObject passDayPanel;
     public GameObject failDayPanel;
+    public GameObject endingPanel;
 
 
     // 총 게임 데이터
@@ -46,7 +48,6 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
     public int dailyConfirmNum = 0;
     public int dailyCureNum = 0;
     public int dailyEscapeNum = 0;
-
 
     public int day = 0;
 
@@ -82,25 +83,29 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
         backPanel.SetActive(false);
         newsPanel.SetActive(false);
         dayPanel.SetActive(false);
+        floorPanel.SetActive(false);
         skillPanel.SetActive(false);
         passDayPanel.SetActive(false);
         failDayPanel.SetActive(false);
+        endingPanel.SetActive(false);
     }
 
-    public void SetOffFailPanel()
+    public void SetOffPanelForRetry()
     {
         backPanel.SetActive(false);
         failDayPanel.SetActive(false);
+        endingPanel.SetActive(false);
     }
+
 
     public void StartGame()
     {
         newsPanel.SetActive(true);
         dayPanel.SetActive(true);
         skillPanel.SetActive(true);
+        floorPanel.SetActive(true);
 
         skillList = skillPanel.GetComponentsInChildren<Button>();
-        Debug.Log(skillList[0]);
     }
 
 
@@ -131,10 +136,16 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
     {
         UpdateData();
         backPanel.SetActive(true);
+
         if (escapeNum >= BalanceData.failEscapeNum)
         {
             failDayPanel.SetActive(true);
             failDayPanel.transform.GetChild(0).GetComponent<ResultManager>().SetResult();
+        }
+        else if (FindObjectOfType<DateManager>().date >= totalDay) // 게임 엔딩 판정
+        {
+            endingPanel.SetActive(true);
+            endingPanel.transform.GetChild(0).GetComponent<ResultManager>().SetResult();
         }
         else
         {
@@ -170,14 +181,21 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity);
 
-            if (hit.collider != null)
+            if (!backPanel.activeSelf && !mgrScene.fadeImage.gameObject.activeSelf)
             {
-                if (nowSkill != -1)
+                if (hit.collider != null)
                 {
-                    roomNum = hit.collider.gameObject.GetComponent<Room>().roomNumber;
-                    skillList[nowSkill].GetComponent<Skill>().Use(roomNum);
-                    roomNum = nowSkill = -1;
+                    if (nowSkill != -1)
+                    {
+                        roomNum = hit.collider.gameObject.GetComponent<Room>().roomNumber;
+                        skillList[nowSkill].GetComponent<Skill>().Use(roomNum);
+                        roomNum = nowSkill = -1;
+                    }
                 }
+            }
+            else
+            {
+                roomNum = nowSkill = -1;
             }
         }
     }
