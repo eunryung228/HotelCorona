@@ -578,6 +578,17 @@ using BansheeGz.BGDatabase;
 					_newQuarantine[Index] = value;
 				}
 			}
+			public System.Collections.Generic.List<System.Int32> maxRoom
+			{
+				get
+				{
+					return _maxRoom[Index];
+				}
+				set
+				{
+					_maxRoom[Index] = value;
+				}
+			}
 			public System.Single minFoodMulti
 			{
 				get
@@ -831,17 +842,6 @@ using BansheeGz.BGDatabase;
 					_successDayNum[Index] = value;
 				}
 			}
-			public System.Int32 maxRoom
-			{
-				get
-				{
-					return _maxRoom[Index];
-				}
-				set
-				{
-					_maxRoom[Index] = value;
-				}
-			}
 			private static BansheeGz.BGDatabase.BGFieldEntityName _ufle12jhs77_name;
 			public static BansheeGz.BGDatabase.BGFieldEntityName _name
 			{
@@ -858,6 +858,15 @@ using BansheeGz.BGDatabase;
 				{
 					if(_ufle12jhs77_newQuarantine==null || _ufle12jhs77_newQuarantine.IsDeleted) _ufle12jhs77_newQuarantine=(BansheeGz.BGDatabase.BGFieldListInt) MetaDefault.GetField(new BGId(5706618661672357845,10753250621521290637));
 					return _ufle12jhs77_newQuarantine;
+				}
+			}
+			private static BansheeGz.BGDatabase.BGFieldListInt _ufle12jhs77_maxRoom;
+			public static BansheeGz.BGDatabase.BGFieldListInt _maxRoom
+			{
+				get
+				{
+					if(_ufle12jhs77_maxRoom==null || _ufle12jhs77_maxRoom.IsDeleted) _ufle12jhs77_maxRoom=(BansheeGz.BGDatabase.BGFieldListInt) MetaDefault.GetField(new BGId(4719152662974116453,736702910536989346));
+					return _ufle12jhs77_maxRoom;
 				}
 			}
 			private static BansheeGz.BGDatabase.BGFieldFloat _ufle12jhs77_minFoodMulti;
@@ -1065,15 +1074,6 @@ using BansheeGz.BGDatabase;
 				{
 					if(_ufle12jhs77_successDayNum==null || _ufle12jhs77_successDayNum.IsDeleted) _ufle12jhs77_successDayNum=(BansheeGz.BGDatabase.BGFieldInt) MetaDefault.GetField(new BGId(5132288433086556868,13718120927810523042));
 					return _ufle12jhs77_successDayNum;
-				}
-			}
-			private static BansheeGz.BGDatabase.BGFieldInt _ufle12jhs77_maxRoom;
-			public static BansheeGz.BGDatabase.BGFieldInt _maxRoom
-			{
-				get
-				{
-					if(_ufle12jhs77_maxRoom==null || _ufle12jhs77_maxRoom.IsDeleted) _ufle12jhs77_maxRoom=(BansheeGz.BGDatabase.BGFieldInt) MetaDefault.GetField(new BGId(4656262096941935731,11982218086372072578));
-					return _ufle12jhs77_maxRoom;
 				}
 			}
 			private static readonly TBL_CHARACTER.Factory _factory0_PFS = new TBL_CHARACTER.Factory();
