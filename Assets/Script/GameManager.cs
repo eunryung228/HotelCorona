@@ -19,6 +19,8 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
     private void Awake()
     {
         Instance = this;
+        
+        this.AddGameEventListening<GameEvent>();
     }
 
 
@@ -194,6 +196,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
             // 하루가 시작하면 아래 함수들이 호출된다.
             // 하루 시작을 알리는 이벤트: GameEvent.Trigger(GameEventType.DailyStart);
             case GameEventType.DailyStart:
+                CurrentState = GameState.Play;
                 AddCharactersDay(); // 격리자 날짜 추가
                 EscapeCheck();      // 탈출 판정
                 CureCheck();        // 완치 판정
