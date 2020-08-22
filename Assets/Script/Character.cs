@@ -124,7 +124,7 @@ public partial class Character : MonoBehaviour
     
     private void Update()
     {
-        // 하루 시작 <--> 하루 종료 상태 사이일때만 반영하도록 바꿔야함
+        if (GameManager.instance.CurrentState != GameState.Play) return;
         if (CurrentState == CharacterState.Death) return;
         
         

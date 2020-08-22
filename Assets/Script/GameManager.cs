@@ -3,10 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public enum GameState
+{
+    Ready,
+    Play,
+    End,
+}
+
+public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
 {
     static public GameManager instance;
     private MySceneManager mgrScene;
+
+    public GameState CurrentState = GameState.Ready;
 
     private void Awake()
     {
@@ -16,6 +25,7 @@ public class GameManager : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
             instance = this;
+            this.AddGameEventListening<GameEvent>();
         }
     }
 
@@ -39,15 +49,12 @@ public class GameManager : MonoBehaviour
     public int dailyCureNum = 0;
     public int dailyEscapeNum = 0;
 
-    // 게임 종료 체크
-    int totalConfirmNum = 5;
-    int totalDay = 14;
+    public int day = 0;
 
     // 대기 중인 격리자 수
-    int remainQuarStby;
+    int remainQuarStby = 0;
 
-    int currentRoom;
-    int maxRoom;
+    public int currentRoom = 0;
 
     public int nowSkill { get; set; } = -1;
     int roomNum = -1;
@@ -129,7 +136,8 @@ public class GameManager : MonoBehaviour
     {
         UpdateData();
         backPanel.SetActive(true);
-        if (confirmNum >= totalConfirmNum) // 게임 실패 판정
+
+        if (escapeNum >= BalanceData.failEscapeNum)
         {
             failDayPanel.SetActive(true);
             failDayPanel.transform.GetChild(0).GetComponent<ResultManager>().SetResult();
@@ -195,5 +203,115 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         ClickTarget();
+    }
+}
+
+public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
+{
+    public void OnGameEvent(GameEvent e)
+    {
+        switch (e.Type)
+        {
+            // 하루가 시작하면 아래 함수들이 호출된다.
+            // 하루 시작을 알리는 이벤트: GameEvent.Trigger(GameEventType.DailyStart);
+            case GameEventType.DailyStart:
+                AddCharactersDay(); // 격리자 날짜 추가
+                EscapeCheck();      // 탈출 판정
+                CureCheck();        // 완치 판정
+                MakeCharacters();   // 격리자 추가
+                break;
+            
+            case GameEventType.Half:
+                ConfirmCheck();     // 확진 판정
+                break;
+        }
+        
+    }
+    
+    private void AddCharactersDay() // 격리자 날짜 추가
+    {
+        var characters = CharacterManager.Instance.LiveCharacters;
+
+        foreach (var character in characters)
+        {
+            character.remainConfirmDate += 1;
+        }
+    }
+    
+    private void EscapeCheck() // 탈출 판정
+    {
+        var characters = CharacterManager.Instance.LiveCharacters;
+        int count = 0;
+
+        foreach (var character in characters)
+        {
+            if (character.escapeRate >= 100)
+            {
+                character.Kill();
+                count++;
+            }
+        }
+        
+        escapeNum += count;
+        dailyEscapeNum = count;
+    }
+
+    private void ConfirmCheck() // 확진 판정
+    {
+        var characters = CharacterManager.Instance.LiveCharacters;
+        int count = 0;
+
+        foreach (var character in characters)
+        {
+            if (character.remainConfirmDate <= 0)
+            {
+                character.Kill();
+                count++;
+            }
+        }
+        
+        confirmNum += count;
+        dailyConfirmNum = confirmNum;
+    }
+
+    private void CureCheck()  // 완치 판정
+    {
+        var characters = CharacterManager.Instance.LiveCharacters;
+        int count = 0;
+
+        foreach (var character in characters)
+        {
+            if (character.day >= BalanceData.cure)
+            {
+                character.Kill();
+                count++;
+            }
+        }
+        
+        cureNum += count;
+        dailyCureNum = count;
+    }
+
+    private void MakeCharacters()
+    {
+        int makeCount = BalanceData.newQuarantine[day]; // 몇개 생성할지
+        currentRoom = CharacterManager.Instance.LiveCharacters.Count;
+        
+        /***
+          currentRoom ≥ maxRoom && remainQuarStby ≥ 1 일때, 빈 방에 격리자를 추가합니다.격리자가 추가될때, 일부 데이터는 밸런스 데이터에서 값을 참조합니다
+          currentRoom == maxRoom일 경우, 격리자가 추가되면 remainQuarStby에 ++하고 실제 격리자가 추가 되지 않습니다
+         */
+
+        for (int i = 0; i < makeCount; ++i)
+        {
+            if (CharacterManager.Instance.TryMakeCharacter())
+            {
+                
+            }
+            else
+            {
+                remainQuarStby++;
+            }
+        }
     }
 }

@@ -1,7 +1,10 @@
 ﻿
 public enum GameEventType
 {
-    PageChange
+    DailyStart,
+    Half,
+    PageChange,
+    DailyEnd,
 }
 
 
@@ -14,7 +17,7 @@ public struct GameEvent
     public static void Trigger(GameEventType type)
     {
         e.Type  = type;
-        
+
         GameEventManager.TriggerGameEvent(e);
     }
 }

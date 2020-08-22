@@ -46,4 +46,14 @@ public static class BalanceData
     // 증감값
     public static float escapeRateAdd        => m_Data.escapeRateAdd;
     public static float confirmRateAdd       => m_Data.confirmRateAdd;
+    
+    // 완치날짜
+    public static int   cure                  => m_Data.cure;
+    
+    //escapeNum가 n이상일 경우 게임이 종료됩니다
+    public static int failEscapeNum           => m_Data.failEscapeNum;
+    //  매니저 관리 날짜가 n이상일 경우 게임이 종료됩니다.
+    public static int successDayNum           => m_Data.successDayNum;
+
+    public static int maxRoom                  => m_Data.maxRoom;
 }

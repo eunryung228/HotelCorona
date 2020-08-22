@@ -32,10 +32,11 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>, GameEventL
         this.AddGameEventListening<GameEvent>();
         
         
-        // 0, 3, 4 번방 캐릭터 나타내기
-        MakeCharacter(0);
-        MakeCharacter(3);
-        MakeCharacter(4);
+        // 캐틱터 앞에서부터 3개 생성
+        
+        //TryMakeCharacter();
+        //TryMakeCharacter();
+        //TryMakeCharacter();
     }
 
     public void OnGameEvent(GameEvent e)
@@ -65,8 +66,8 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>, GameEventL
     
     private void MakeCharacterPool()
     {
-        // 캐릭터 미리 24개 생성
-        for (int i = 0; i < 24; ++i)
+        // 캐릭터 미리 maxRoom 만큼 생성
+        for (int i = 0; i < BalanceData.maxRoom; ++i)
         {
             var character = Instantiate(m_CharacterPrefab, Vector3.zero, Quaternion.identity, m_CharacterParent);
             character.room = rooms[i % 6];
@@ -83,11 +84,18 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>, GameEventL
         return characters[characterIndex];
     }
 
-    public void MakeCharacter(int characterIndex)
+    public bool TryMakeCharacter()
     {
-        var character = characters[characterIndex];
-        if (character.CurrentState == CharacterState.Live) return;
-        
-        character.Refresh();
+        foreach (var character in characters)
+        {
+            if (character.CurrentState == CharacterState.Death)
+            {
+                character.Refresh();
+                return true;
+            }
+        }
+
+        return false;
     }
+    
 }

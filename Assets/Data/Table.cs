@@ -798,6 +798,50 @@ using BansheeGz.BGDatabase;
 					_confirmRateAdd[Index] = value;
 				}
 			}
+			public System.Int32 cure
+			{
+				get
+				{
+					return _cure[Index];
+				}
+				set
+				{
+					_cure[Index] = value;
+				}
+			}
+			public System.Int32 failEscapeNum
+			{
+				get
+				{
+					return _failEscapeNum[Index];
+				}
+				set
+				{
+					_failEscapeNum[Index] = value;
+				}
+			}
+			public System.Int32 successDayNum
+			{
+				get
+				{
+					return _successDayNum[Index];
+				}
+				set
+				{
+					_successDayNum[Index] = value;
+				}
+			}
+			public System.Int32 maxRoom
+			{
+				get
+				{
+					return _maxRoom[Index];
+				}
+				set
+				{
+					_maxRoom[Index] = value;
+				}
+			}
 			private static BansheeGz.BGDatabase.BGFieldEntityName _ufle12jhs77_name;
 			public static BansheeGz.BGDatabase.BGFieldEntityName _name
 			{
@@ -994,6 +1038,42 @@ using BansheeGz.BGDatabase;
 				{
 					if(_ufle12jhs77_confirmRateAdd==null || _ufle12jhs77_confirmRateAdd.IsDeleted) _ufle12jhs77_confirmRateAdd=(BansheeGz.BGDatabase.BGFieldFloat) MetaDefault.GetField(new BGId(5331684224806806543,16572060165200737699));
 					return _ufle12jhs77_confirmRateAdd;
+				}
+			}
+			private static BansheeGz.BGDatabase.BGFieldInt _ufle12jhs77_cure;
+			public static BansheeGz.BGDatabase.BGFieldInt _cure
+			{
+				get
+				{
+					if(_ufle12jhs77_cure==null || _ufle12jhs77_cure.IsDeleted) _ufle12jhs77_cure=(BansheeGz.BGDatabase.BGFieldInt) MetaDefault.GetField(new BGId(5710426476353977497,8134088804132030606));
+					return _ufle12jhs77_cure;
+				}
+			}
+			private static BansheeGz.BGDatabase.BGFieldInt _ufle12jhs77_failEscapeNum;
+			public static BansheeGz.BGDatabase.BGFieldInt _failEscapeNum
+			{
+				get
+				{
+					if(_ufle12jhs77_failEscapeNum==null || _ufle12jhs77_failEscapeNum.IsDeleted) _ufle12jhs77_failEscapeNum=(BansheeGz.BGDatabase.BGFieldInt) MetaDefault.GetField(new BGId(5726180621675385946,849514927047791551));
+					return _ufle12jhs77_failEscapeNum;
+				}
+			}
+			private static BansheeGz.BGDatabase.BGFieldInt _ufle12jhs77_successDayNum;
+			public static BansheeGz.BGDatabase.BGFieldInt _successDayNum
+			{
+				get
+				{
+					if(_ufle12jhs77_successDayNum==null || _ufle12jhs77_successDayNum.IsDeleted) _ufle12jhs77_successDayNum=(BansheeGz.BGDatabase.BGFieldInt) MetaDefault.GetField(new BGId(5132288433086556868,13718120927810523042));
+					return _ufle12jhs77_successDayNum;
+				}
+			}
+			private static BansheeGz.BGDatabase.BGFieldInt _ufle12jhs77_maxRoom;
+			public static BansheeGz.BGDatabase.BGFieldInt _maxRoom
+			{
+				get
+				{
+					if(_ufle12jhs77_maxRoom==null || _ufle12jhs77_maxRoom.IsDeleted) _ufle12jhs77_maxRoom=(BansheeGz.BGDatabase.BGFieldInt) MetaDefault.GetField(new BGId(4656262096941935731,11982218086372072578));
+					return _ufle12jhs77_maxRoom;
 				}
 			}
 			private static readonly TBL_CHARACTER.Factory _factory0_PFS = new TBL_CHARACTER.Factory();
