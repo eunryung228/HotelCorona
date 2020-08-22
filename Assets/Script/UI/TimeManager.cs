@@ -25,6 +25,7 @@ public class TimeManager : MonoBehaviour
 
     public void ResetTime()
     {
+        hour = 8;
         timeText.text = "08:00";
         timeImage.sprite = Resources.Load<Sprite>("UI/Timer/day") as Sprite;
     }
@@ -35,18 +36,22 @@ public class TimeManager : MonoBehaviour
         {
             time += Time.deltaTime;
             sec = Mathf.Ceil(time);
-            timeText.text = hour.ToString("D2") + ":00";
 
             if (sec >= 8.57)
             {
                 hour += 1;
                 sec = 0;
+                timeText.text = hour.ToString("D2") + ":00";
                 time = 0;
 
-                if (hour == 18)
+                if (hour == 9) // 원래 값 15
+                    GameEvent.Trigger(GameEventType.Half);
+                else if(hour == 18)
                     timeImage.sprite = Resources.Load("UI/Timer/night") as Sprite;
-                else if (hour == 22)
+                else if (hour == 10) // 원래 값 22
                     GameManager.Instance.CheckGameState();
+                //else if (hour == 22)
+                //    GameManager.Instance.CheckGameState();
             }
         }
     }

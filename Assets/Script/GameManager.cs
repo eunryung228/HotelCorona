@@ -94,6 +94,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
 
     public void StartDay()
     {
+        day += 1;
         GameEvent.Trigger(GameEventType.DailyStart);
     }
 

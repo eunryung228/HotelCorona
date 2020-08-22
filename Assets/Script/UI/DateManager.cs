@@ -10,7 +10,6 @@ public class DateManager : MonoBehaviour
 
     public void PassDay()
     {
-        GameManager.Instance.day += 1;
         textDate.text = GameManager.Instance.day.ToString("D2");
     }
 

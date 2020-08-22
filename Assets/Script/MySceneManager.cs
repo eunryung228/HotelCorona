@@ -53,13 +53,13 @@ public class MySceneManager : MonoBehaviour
 
         if (prevScene == "TitleScene")
         {
-            FindObjectOfType<GameManager>().StartGame();
+            GameManager.Instance.StartGame();
             GameManager.Instance.StartDay();
             BGMManager.instance.Play(1);
         }
         else
         {
-            FindObjectOfType<GameManager>().SetOffUIPanels();
+            GameManager.Instance.SetOffUIPanels();
             BGMManager.instance.Play(0);
         }
     }
@@ -89,8 +89,8 @@ public class MySceneManager : MonoBehaviour
     {
         yield return StartCoroutine(ImageFadeOut());
         FindObjectOfType<TimeManager>().ResetTime();
-        FindObjectOfType<DateManager>().PassDay();
         GameManager.Instance.StartDay();
+        FindObjectOfType<DateManager>().PassDay();
         StartCoroutine(ImageFadeIn());
     }
 
