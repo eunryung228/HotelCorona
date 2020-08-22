@@ -250,6 +250,14 @@ public partial class Character : MonoBehaviour
 
     private void Move_Update()
     {
+        if (GameManager.Instance.CurrentState == GameState.End)
+        {
+            m_Animator.speed = 0;
+            return;
+        }
+
+        m_Animator.speed = 1;
+        
         if (Vector3.Distance(CurrentPosition, DestinationPosition) < m_MoveSpeed)
         {
             m_FSM.ChangeState(FSMState.Idle);
