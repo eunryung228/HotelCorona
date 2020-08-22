@@ -30,16 +30,6 @@ public class Skill : MonoBehaviour
         m_Data = TBL_SKILL.GetEntity(skillIndex);
     }
 
-
-    public string GetSkillName()
-    {
-        return m_Data.skillType.ToString();
-    }
-    public List<string> GetUpStatList()
-    {
-        return m_Data.upStat;
-    }
-
     public void ClickSkillButton()
     {
         GameManager.Instance.nowSkill = m_SkillIndex;

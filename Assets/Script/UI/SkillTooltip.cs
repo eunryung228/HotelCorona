@@ -7,18 +7,20 @@ using UnityEngine.UI;
 public class SkillTooltip : MonoBehaviour
 {
     public Text textSkillName;
-    public Grid upGrid;
-    public Grid downGrid;
-
-    public Skill skill;
+    public GridLayoutGroup upGrid;
+    public GridLayoutGroup downGrid;
 
 
     void Start()
     {
+        SetStatus(0);
     }
 
     void SetStatus(int index) // 툴팁 생성 시 호출
     {
+        var skill = TBL_SKILL.GetEntity(index);
+        textSkillName.text = skill.skillType.ToString();
+
         //skillIndex = index;
         //textSkillName.text=Skill
         // 스킬 이름 설정
