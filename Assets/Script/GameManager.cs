@@ -266,7 +266,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
 
         if (count > 0)
         {
-            // 앰뷸런스 소리
+            AudioManager.Instance.Play("Ambulance");
         }
         
         confirmNum += count;

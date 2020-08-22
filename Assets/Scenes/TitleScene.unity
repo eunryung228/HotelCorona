@@ -948,6 +948,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 837a983b9448a4c4cbc75db45f570ff5, type: 3}
     loop: 0
     volume: 1
+  - name: Ambulance
+    clip: {fileID: 8300000, guid: 5488a7c43da755a4eb53b1af0997e5f8, type: 3}
+    loop: 0
+    volume: 1
 --- !u!1 &1001138459
 GameObject:
   m_ObjectHideFlags: 0
