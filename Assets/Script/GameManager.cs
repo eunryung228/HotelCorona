@@ -263,6 +263,11 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
                 count++;
             }
         }
+
+        if (count > 0)
+        {
+            // 앰뷸런스 소리
+        }
         
         confirmNum += count;
         dailyConfirmNum = count;

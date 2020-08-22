@@ -23,6 +23,24 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>, GameEventL
      *        3번방         4번방        5번방
      ************************************************************/
 
+    public int GetLiveCharacterCount(int page)
+    {
+        int count = 0;
+        
+        int startIndex = page  * 6;      
+        int endIndex = startIndex + 6;
+
+        for (int i = startIndex; i < endIndex; ++i)
+        {
+            if (characters[i].CurrentState == CharacterState.Live)
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
     protected override void Awake()
     {
         base.Awake();
