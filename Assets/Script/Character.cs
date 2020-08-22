@@ -50,7 +50,7 @@ public partial class Character : MonoBehaviour
     public int day;
 
     [Header("캐릭터 상태")]
-    public CharacterState CurrentState = CharacterState.Live;
+    public CharacterState CurrentState = CharacterState.Death;
     
     private enum CharacterType
     {
@@ -89,8 +89,10 @@ public partial class Character : MonoBehaviour
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
         
         m_FSM = StateMachine<FSMState>.Initialize(this, FSMState.None);
-        
-        DataInit();
+
+        CurrentState = CharacterState.Death;
+
+        m_SpriteRenderer.enabled = false;
     }
     
     private void DataInit()
@@ -119,16 +121,11 @@ public partial class Character : MonoBehaviour
         
         m_FSM.ChangeState(FSMState.None);
     }
-
-    private void Start()
-    {
-        m_FSM.ChangeState(FSMState.Start);
-    }
-
+    
     private void Update()
     {
         // 하루 시작 <--> 하루 종료 상태 사이일때만 반영하도록 바꿔야함
-        if (m_FSM.State == FSMState.None) return;
+        if (CurrentState == CharacterState.Death) return;
         
         
         float dt = Time.deltaTime;
@@ -172,12 +169,27 @@ public partial class Character : MonoBehaviour
         return true;
     }
 
+
+    public void Show()
+    {
+        m_SpriteRenderer.enabled = true;
+    }
+
+    public void Hide()
+    {
+        m_SpriteRenderer.enabled = false;
+    }
+
     public void Refresh()
     {
+        DataInit();
+        m_SpriteRenderer.enabled = true;
         m_FSM.ChangeState(FSMState.Start, StateTransition.Overwrite);
     }
+    
     public void Kill()
     {
+        m_SpriteRenderer.enabled = false;
         m_FSM.ChangeState(FSMState.Die, StateTransition.Overwrite);
     }
 }
@@ -193,6 +205,8 @@ public partial class Character : MonoBehaviour
 
     private void Start_Enter()
     {
+        CurrentState = CharacterState.Live;
+        
         m_SpriteRenderer.enabled = true;
         
         transform.position = room.GetRandomPosition();
