@@ -374,7 +374,7 @@ using BansheeGz.BGDatabase;
 					_reaminUseAmount[Index] = value;
 				}
 			}
-			public System.Collections.Generic.List<System.String> upStat
+			public System.Collections.Generic.List<System.Int32> upStat
 			{
 				get
 				{
@@ -385,7 +385,7 @@ using BansheeGz.BGDatabase;
 					_upStat[Index] = value;
 				}
 			}
-			public System.Collections.Generic.List<System.String> downStat
+			public System.Collections.Generic.List<System.Int32> downStat
 			{
 				get
 				{
@@ -477,21 +477,21 @@ using BansheeGz.BGDatabase;
 					return _ufle12jhs77_reaminUseAmount;
 				}
 			}
-			private static BansheeGz.BGDatabase.BGFieldListString _ufle12jhs77_upStat;
-			public static BansheeGz.BGDatabase.BGFieldListString _upStat
+			private static BansheeGz.BGDatabase.BGFieldListInt _ufle12jhs77_upStat;
+			public static BansheeGz.BGDatabase.BGFieldListInt _upStat
 			{
 				get
 				{
-					if(_ufle12jhs77_upStat==null || _ufle12jhs77_upStat.IsDeleted) _ufle12jhs77_upStat=(BansheeGz.BGDatabase.BGFieldListString) MetaDefault.GetField(new BGId(5290444446080347432,8223897741068985262));
+					if(_ufle12jhs77_upStat==null || _ufle12jhs77_upStat.IsDeleted) _ufle12jhs77_upStat=(BansheeGz.BGDatabase.BGFieldListInt) MetaDefault.GetField(new BGId(5744636216214702337,17278866162255113911));
 					return _ufle12jhs77_upStat;
 				}
 			}
-			private static BansheeGz.BGDatabase.BGFieldListString _ufle12jhs77_downStat;
-			public static BansheeGz.BGDatabase.BGFieldListString _downStat
+			private static BansheeGz.BGDatabase.BGFieldListInt _ufle12jhs77_downStat;
+			public static BansheeGz.BGDatabase.BGFieldListInt _downStat
 			{
 				get
 				{
-					if(_ufle12jhs77_downStat==null || _ufle12jhs77_downStat.IsDeleted) _ufle12jhs77_downStat=(BansheeGz.BGDatabase.BGFieldListString) MetaDefault.GetField(new BGId(4856654479217810909,9330625315966820287));
+					if(_ufle12jhs77_downStat==null || _ufle12jhs77_downStat.IsDeleted) _ufle12jhs77_downStat=(BansheeGz.BGDatabase.BGFieldListInt) MetaDefault.GetField(new BGId(4616387059324019240,2643604728048952509));
 					return _ufle12jhs77_downStat;
 				}
 			}

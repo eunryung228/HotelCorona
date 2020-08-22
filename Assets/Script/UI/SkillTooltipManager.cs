@@ -4,20 +4,28 @@ using UnityEngine;
 
 public class SkillTooltipManager : MonoBehaviour
 {
-    public GameObject tooltipPanel;
-    public GameObject fullTooltip;
-    public GameObject leftTooltip; // 맥도날드인 경우만
+    public SkillTooltip fullTooltip;
+    public GameObject leftTooltip;
 
 
-    void Start()
+    public void TooltipLayerOn(int skill)
     {
+        fullTooltip.gameObject.SetActive(true);
+        fullTooltip.SetStatus(skill);
     }
 
-    public void TooltipLayerOn(Skill skill)
+    public void TooltipLayerOff()
     {
+        fullTooltip.ResetStatus();
+        fullTooltip.gameObject.SetActive(false);
     }
 
-    void Update()
+    public void LeftTooltipLayerOn()
     {
+        leftTooltip.gameObject.SetActive(true);
+    }
+    public void LeftTooltipLayerOff()
+    {
+        leftTooltip.gameObject.SetActive(false);
     }
 }
