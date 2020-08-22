@@ -34,7 +34,7 @@ public static class BalanceData
     
     // 확진일까지 남은 날
     public static int minRemainConfirmDate   => m_Data.minRemainConfirmDate;
-    public static int maxRemainConfirmDate   => m_Data.minRemainConfirmDate;
+    public static int maxRemainConfirmDate   => m_Data.maxRemainConfirmDate;
 
     // 확진 확률
     public static float minConfirmRate       => m_Data.minConfirmRate;

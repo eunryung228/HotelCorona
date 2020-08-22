@@ -255,7 +255,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
 
         foreach (var character in characters)
         {
-            if (character.remainConfirmDate <= 0)
+            if (character.remainConfirmDate == 0 && character.confirmRate >= Random.Range(0.0f,100.0f))
             {
                 Debug.Log($"[LOG] { CharacterManager.Instance.characters.IndexOf(character)}번 캐릭터가 확진 판정을 받았습니다.");
 
