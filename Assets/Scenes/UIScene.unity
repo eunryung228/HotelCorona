@@ -9385,7 +9385,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: PLEASE STAY INSIDE !
+  m_Text: "\uC2DC\uAC04\uC740 \uBA48\uCD94\uC9C0\uB9CC \uB2E4\uB9AC\uB294 \uBA48\uCD94\uC9C0
+    \uC54A\uC2B5\uB2C8\uB2E4."
 --- !u!222 &1565371838
 CanvasRenderer:
   m_ObjectHideFlags: 0
