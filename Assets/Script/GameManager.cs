@@ -32,6 +32,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
     public GameObject passDayPanel;
     public GameObject failDayPanel;
     public GameObject endingPanel;
+    public GameObject settingPanel;
 
 
     // 총 게임 데이터
@@ -71,6 +72,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
         passDayPanel.SetActive(false);
         failDayPanel.SetActive(false);
         endingPanel.SetActive(false);
+        settingPanel.SetActive(false);
     }
 
     public void SetOffPanelForRetry()
@@ -155,6 +157,19 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
     {
         ResetAllData();
         MySceneManager.Instance.Restart();
+    }
+
+    public void ClickSettingBtn()
+    {
+        CurrentState = GameState.Ready;
+        backPanel.SetActive(true);
+        settingPanel.SetActive(true);
+    }
+    public void ClickSettingOffBtn()
+    {
+        CurrentState = GameState.Play;
+        backPanel.SetActive(false);
+        settingPanel.SetActive(false);
     }
 
 
