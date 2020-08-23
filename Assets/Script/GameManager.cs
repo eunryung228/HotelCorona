@@ -256,7 +256,8 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
             if (character.escapeRate >= 100)
             {
                 Debug.Log($"[LOG] { CharacterManager.Instance.characters.IndexOf(character)}번 캐릭터가 탈출했습니다.");
-                
+                PopupEvent.Trigger(PopupEventType.Escape, 0, CharacterManager.Instance.characters.IndexOf(character));
+
                 character.Kill();
                 count++;
             }
@@ -293,6 +294,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
         {
             AudioManager.Instance.Play("Ambulance");
             GameEvent.Trigger(GameEventType.PageChange);
+            PopupEvent.Trigger(PopupEventType.Confirm, 0);
         }
         
         confirmNum += count;
@@ -314,6 +316,11 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
                 character.Kill();
                 count++;
             }
+        }
+
+        if (count > 0)
+        {
+            PopupEvent.Trigger(PopupEventType.Cure, 0);
         }
         
         cureNum += count;
