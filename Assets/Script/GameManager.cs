@@ -309,7 +309,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
         {
             AudioManager.Instance.Play("Ambulance");
             GameEvent.Trigger(GameEventType.PageChange);
-            PopupEvent.Trigger(PopupEventType.Confirm, 0);
+            PopupEvent.Trigger(PopupEventType.Confirm, count);
         }
         
         confirmNum += count;
@@ -335,7 +335,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
 
         if (count > 0)
         {
-            PopupEvent.Trigger(PopupEventType.Cure, 0);
+            PopupEvent.Trigger(PopupEventType.Cure, count);
         }
         
         cureNum += count;
