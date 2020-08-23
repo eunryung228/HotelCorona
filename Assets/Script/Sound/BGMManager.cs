@@ -13,11 +13,11 @@ public class BGMManager : MonoBehaviour
     {
         if (instance != null)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
         else
         {
-            DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(gameObject);
             instance = this;
         }
     }

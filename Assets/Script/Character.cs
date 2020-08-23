@@ -35,7 +35,7 @@ public partial class Character : MonoBehaviour
     private float loneMulti;
 
     // 현재 스킬 쿨타임
-    private float currentSkillCoolDown;
+    public float currentSkillCoolDown;
     
     [Header("확진일까지 남은 날")]
     public int remainConfirmDate;

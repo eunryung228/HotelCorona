@@ -57,6 +57,7 @@ public class Skill : MonoBehaviour
             // 스킬 사용이 잘 되었다는 메시지
             Debug.Log(m_Data.skillType + " 사용"); // temp
             AudioManager.Instance.Play(m_Data.skillType.ToString());
+            CooltimeManager.Instance.UseSkill((GameManager.Instance.currentPage - 1) * 6 + roomNumber, m_SkillIndex);
         }
         else
         {
