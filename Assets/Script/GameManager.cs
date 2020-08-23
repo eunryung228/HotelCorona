@@ -187,6 +187,11 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
     private void Update()
     {
         ClickTarget();
+
+        if (CurrentState == GameState.Play)
+        {
+            EscapeCheck();
+        }
     }
 }
 
@@ -201,9 +206,10 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
             case GameEventType.DailyStart:
                 CurrentState = GameState.Play;
                 AddCharactersDay(); // 격리자 날짜 추가
-                EscapeCheck();      // 탈출 판정
+               // EscapeCheck();      // 탈출 판정
                 CureCheck();        // 완치 판정
                 MakeCharacters(BalanceData.newQuarantine[day]);   // 격리자 추가
+                InitSkillCoolTime(); // 스킬 쿨타임 초기화
                 day++;
                 break;
             
@@ -217,6 +223,16 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
                 break;
         }
         
+    }
+
+    private void InitSkillCoolTime() // 스킬 쿨다운 초기화
+    {
+        var characters = CharacterManager.Instance.LiveCharacters;
+
+        foreach (var character in characters)
+        {
+            character.currentSkillCoolDown = 0f;
+        }
     }
     
     private void AddCharactersDay() // 격리자 날짜 추가
@@ -245,9 +261,14 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
                 count++;
             }
         }
-        
+
         escapeNum += count;
-        dailyEscapeNum = count;
+        dailyEscapeNum += count;
+        
+        if (count > 0)
+        {
+            GameEvent.Trigger(GameEventType.PageChange);
+        }
     }
 
     private void ConfirmCheck() // 확진 판정
@@ -271,6 +292,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
         if (count > 0)
         {
             AudioManager.Instance.Play("Ambulance");
+            GameEvent.Trigger(GameEventType.PageChange);
         }
         
         confirmNum += count;
@@ -311,6 +333,8 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
             }
         }
         
+        GameEvent.Trigger(GameEventType.PageChange);
+
         currentRoom = CharacterManager.Instance.LiveCharacters.Count;
     }
 }
