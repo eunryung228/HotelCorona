@@ -25,6 +25,7 @@ public class TitleManager : MonoBehaviour
 
     public GameObject backPanel;
     public GameObject tutorialPanel;
+    public GameObject creditPanel;
 
     public void ClickGameStart()
     {
@@ -37,10 +38,17 @@ public class TitleManager : MonoBehaviour
         tutorialPanel.SetActive(true);
     }
 
+    public void ClickCreditButton()
+    {
+        backPanel.SetActive(true);
+        creditPanel.SetActive(true);
+    }
+
     public void ClickCloseBtn()
     {
         backPanel.SetActive(false);
         tutorialPanel.SetActive(false);
+        creditPanel.SetActive(false);
     }
 
     public void ClickGameExit()
