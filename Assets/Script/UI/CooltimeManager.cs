@@ -18,12 +18,19 @@ public class CooltimeManager : MonoBehaviour, GameEventListener<GameEvent>
     {
         Instance = this;
         this.AddGameEventListening<GameEvent>();
+
+    }
+
+    private void OnDisable()
+    {
+        this.RemoveGameEventListening<GameEvent>();
     }
 
 
     private void Start()
     {
         InitializeCooltime();
+
     }
 
 

@@ -21,6 +21,8 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
         Instance = this;
         
         this.AddGameEventListening<GameEvent>();
+        
+        DontDestroyOnLoad(gameObject);
     }
 
 
@@ -112,6 +114,13 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
         cureNum = 0;
         confirmNum = 0;
         escapeNum = 0;
+        currentPage = 1;
+        remainQuarStby = 0;
+        nowSkill = -1;
+        day = 0;
+        currentRoom = 0;
+        CharacterManager.Instance.Reset();
+        
         ResetTodayData();
     }
 
@@ -164,6 +173,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
         CurrentState = GameState.Ready;
         backPanel.SetActive(true);
         settingPanel.SetActive(true);
+        
     }
     public void ClickSettingOffBtn()
     {

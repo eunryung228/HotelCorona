@@ -14,17 +14,31 @@ public class NewsManager : MonoBehaviour
 
     private int newsCount = 0;
 
+    private Coroutine m_Coroutine;
     
-    void Start()
+    private void Awake()
     {
         newsText = GetComponent<Text>();
         newsText.text = "";
         NewsOn();
     }
 
+    private void OnEnable()
+    {      
+        NewsOn();
+
+        
+    }
+    
+    
+
     public void NewsOn()
     {
-        StartCoroutine(NewsCoroutine());
+        if (m_Coroutine != null)
+        {
+            StopCoroutine(m_Coroutine);
+        }
+        m_Coroutine = StartCoroutine(NewsCoroutine());
     }
     
     

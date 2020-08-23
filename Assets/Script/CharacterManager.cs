@@ -57,6 +57,14 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>, GameEventL
         //TryMakeCharacter();
     }
 
+    public void Reset()
+    {
+        foreach (var character in characters)
+        {
+            character.Kill();
+        }
+    }
+
     public void OnGameEvent(GameEvent e)
     {
         switch (e.Type)
