@@ -76,7 +76,7 @@ public class Cooltime : MonoBehaviour
         currValue = m_character.currentSkillCoolDown;
         cooltimeImages[1].fillAmount = 1 - currValue / maxValue;
 
-        if (currValue < 0)
+        if (currValue <= 0 || m_character.CurrentState == CharacterState.Death)
         {
             isOn = false;
             SetState();
