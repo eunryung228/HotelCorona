@@ -292,6 +292,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
         if (count > 0)
         {
             AudioManager.Instance.Play("Ambulance");
+            GameEvent.Trigger(GameEventType.PageChange);
         }
         
         confirmNum += count;
@@ -332,6 +333,8 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
             }
         }
         
+        GameEvent.Trigger(GameEventType.PageChange);
+
         currentRoom = CharacterManager.Instance.LiveCharacters.Count;
     }
 }
