@@ -209,6 +209,7 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
                // EscapeCheck();      // 탈출 판정
                 CureCheck();        // 완치 판정
                 MakeCharacters(BalanceData.newQuarantine[day]);   // 격리자 추가
+                InitSkillCoolTime(); // 스킬 쿨타임 초기화
                 day++;
                 break;
             
@@ -222,6 +223,16 @@ public partial class GameManager : MonoBehaviour, GameEventListener<GameEvent>
                 break;
         }
         
+    }
+
+    private void InitSkillCoolTime() // 스킬 쿨다운 초기화
+    {
+        var characters = CharacterManager.Instance.LiveCharacters;
+
+        foreach (var character in characters)
+        {
+            character.currentSkillCoolDown = 0f;
+        }
     }
     
     private void AddCharactersDay() // 격리자 날짜 추가
